@@ -12,12 +12,8 @@
 alias TtcAlerts.Repo
 alias TtcAlerts.Schema.User
 
-mike_phone_num = System.get_env("MIKE_PHONE_NUM")
-jasmine_phone_num = System.get_env("JASMINE_PHONE_NUM")
-
-if is_nil(mike_phone_num) or is_nil(jasmine_phone_num) do
-  IO.puts("NO PHONE NUMBERS DEFINED!!!")
-end
+mike_phone_num = System.fetch_env!("MIKE_PHONE_NUM")
+jasmine_phone_num = System.fetch_env!("JASMINE_PHONE_NUM")
 
 users = [
   %{name: "Mike", phone_number: mike_phone_num},
