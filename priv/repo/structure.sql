@@ -3,7 +3,7 @@
 --
 
 -- Dumped from database version 11.6
--- Dumped by pg_dump version 12.1
+-- Dumped by pg_dump version 11.6
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -18,6 +18,8 @@ SET row_security = off;
 
 SET default_tablespace = '';
 
+SET default_with_oids = false;
+
 --
 -- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -
 --
@@ -26,6 +28,40 @@ CREATE TABLE public.schema_migrations (
     version bigint NOT NULL,
     inserted_at timestamp(0) without time zone
 );
+
+
+--
+-- Name: service_alerts; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.service_alerts (
+    id bigint NOT NULL,
+    raw_text character varying(255) NOT NULL,
+    hashed_text character varying(255) NOT NULL,
+    active boolean DEFAULT true NOT NULL,
+    last_updated timestamp(0) without time zone NOT NULL,
+    inserted_at timestamp(0) without time zone NOT NULL,
+    updated_at timestamp(0) without time zone NOT NULL
+);
+
+
+--
+-- Name: service_alerts_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.service_alerts_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: service_alerts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.service_alerts_id_seq OWNED BY public.service_alerts.id;
 
 
 --
@@ -61,6 +97,13 @@ ALTER SEQUENCE public.users_id_seq OWNED BY public.users.id;
 
 
 --
+-- Name: service_alerts id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.service_alerts ALTER COLUMN id SET DEFAULT nextval('public.service_alerts_id_seq'::regclass);
+
+
+--
 -- Name: users id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -76,6 +119,14 @@ ALTER TABLE ONLY public.schema_migrations
 
 
 --
+-- Name: service_alerts service_alerts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.service_alerts
+    ADD CONSTRAINT service_alerts_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -87,5 +138,5 @@ ALTER TABLE ONLY public.users
 -- PostgreSQL database dump complete
 --
 
-INSERT INTO public."schema_migrations" (version) VALUES (20200123015758);
+INSERT INTO public."schema_migrations" (version) VALUES (20200123015758), (20200127183908);
 
