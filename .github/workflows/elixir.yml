@@ -1,0 +1,59 @@
+name: mix lint && mix test
+
+on: push
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    services:
+      db:
+        image: postgres:11
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    steps:
+    - uses: actions/checkout@v1
+    - uses: actions/setup-elixir@v1.0.0
+      with:
+        otp-version: 22.x
+        elixir-version: 1.10.0
+
+    - name: Cache deps
+      uses: actions/cache@v1
+      with:
+        path: deps
+        key: ${{ runner.OS }}-build-${{ hashFiles('**/mix.exs') }}
+        restore-keys: |
+          ${{ runner.OS }}-build-${{ env.cache-name }}-
+          ${{ runner.OS }}-build-
+          ${{ runner.OS }}-
+    - name: Cache build
+      uses: actions/cache@v1
+      with:
+        path: _build
+        key: ${{ runner.OS }}-build-${{ hashFiles('**/mix.exs') }}
+        restore-keys: |
+          ${{ runner.OS }}-build-${{ env.cache-name }}-
+          ${{ runner.OS }}-build-
+          ${{ runner.OS }}-
+    - name: Install Dependencies
+      run: |
+        mix local.rebar --force
+        mix local.hex --force
+        mix deps.get
+    - name: Compile
+      run: mix compile --warnings-as-errors
+
+    - name: Lint
+      run: mix lint
+
+    - name: Test
+      run: mix test
+
+    - name: Dialyzer
+      run: mix dialyzer

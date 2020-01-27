@@ -1,0 +1,10 @@
+<h2>Users</h2>
+
+<div>
+  <%= for user <- @users do %>
+    <div>
+      <p><%= user.name %>: <%= user.phone_number %></p>
+      <p></p>
+    </div>
+  <% end %>
+</div>
