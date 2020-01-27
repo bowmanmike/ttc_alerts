@@ -8,6 +8,7 @@ defmodule TtcAlerts.Factory do
 
   use ExMachina.Ecto, repo: TtcAlerts.Repo
 
-  # none yet
-  # use TtcAlerts.Factories
+  use TtcAlerts.Factories.{
+    ServiceAlert
+  }
 end

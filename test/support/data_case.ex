@@ -26,6 +26,7 @@ defmodule TtcAlerts.DataCase do
       import Ecto.Changeset
       import Ecto.Query
       import TtcAlerts.DataCase
+      import TtcAlerts.Factory
     end
   end
 
@@ -53,5 +54,10 @@ defmodule TtcAlerts.DataCase do
         opts |> Keyword.get(String.to_existing_atom(key), key) |> to_string()
       end)
     end)
+  end
+
+  def assert_valid_changeset(%Ecto.Changeset{} = changeset) do
+    assert changeset.valid?,
+           "Changeset is not valid. Changeset errors:\n  #{inspect(errors_on(changeset))}"
   end
 end
