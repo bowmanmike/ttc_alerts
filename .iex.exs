@@ -5,6 +5,9 @@ import Ecto.Changeset
 
 alias TtcAlerts.{
   Repo,
-  User,
   Users
+}
+
+alias TtcAlerts.Schema.{
+  User
 }
