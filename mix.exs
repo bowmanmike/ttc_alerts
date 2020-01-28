@@ -38,6 +38,7 @@ defmodule TtcAlerts.MixProject do
       {:ecto_sql, "~> 3.1"},
       {:ex_machina, "~> 2.3", only: :test},
       {:faker, "~> 0.13", only: :test},
+      {:floki, "~> 0.25.0"},
       {:gettext, "~> 0.11"},
       {:httpoison, "~> 1.6"},
       {:jason, "~> 1.0"},
