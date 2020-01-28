@@ -21,6 +21,14 @@ defmodule TtcAlerts.Schema.ServiceAlert do
     |> validate_changeset()
   end
 
+  def active(query \\ __MODULE__) do
+    from(alert in query, where: alert.active == true)
+  end
+
+  def inactive(query \\ __MODULE__) do
+    from(alert in query, where: alert.active == false)
+  end
+
   defp validate_changeset(changeset) do
     validate_required(changeset, ~w(raw_text hashed_text active last_updated)a)
   end
