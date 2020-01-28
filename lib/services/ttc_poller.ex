@@ -5,7 +5,7 @@ defmodule TtcAlerts.Services.TtcPoller do
 
   use GenServer
 
-  @poll_interval 1000 * 60
+  @poll_interval 1000 * 60 * 60
   @ttc_alerts_url "https://www.ttc.ca/Service_Advisories/all_service_alerts.jsp"
 
   def start_link(arg) do
@@ -27,8 +27,7 @@ defmodule TtcAlerts.Services.TtcPoller do
   def handle_info(:poll, state) do
     schedule_work()
 
-    # msg = "#{Timex.now()} #{__MODULE__} Working!"
-    # IO.puts(msg)
+    get_alerts_page()
 
     {:noreply, state}
   end
