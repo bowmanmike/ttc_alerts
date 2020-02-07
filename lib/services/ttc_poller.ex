@@ -5,6 +5,8 @@ defmodule TtcAlerts.Services.TtcPoller do
 
   use GenServer
 
+  alias TtcAlerts.AlertParser
+
   @poll_interval 1000 * 60 * 60
   @ttc_alerts_url "https://www.ttc.ca/Service_Advisories/all_service_alerts.jsp"
 

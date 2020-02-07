@@ -22,4 +22,10 @@ defmodule TtcAlerts.ServiceAlerts do
     |> ServiceAlert.inactive()
     |> Repo.all()
   end
+
+  def create(params) do
+    %ServiceAlert{}
+    |> ServiceAlert.create_changeset(params)
+    |> Repo.insert()
+  end
 end
