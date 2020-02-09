@@ -21,6 +21,7 @@ defmodule TtcAlerts.Services.TtcPoller do
   @impl true
   def init(state) do
     schedule_work()
+    handle_info(:poll, state)
 
     {:ok, state}
   end
@@ -40,6 +41,7 @@ defmodule TtcAlerts.Services.TtcPoller do
 
   defp get_alerts_page do
     {:ok, %{body: body}} = HTTPoison.get(@ttc_alerts_url)
-    body
+
+    AlertParser.extract_alerts(body)
   end
 end
