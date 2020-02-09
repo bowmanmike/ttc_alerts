@@ -18,6 +18,7 @@ defmodule TtcAlerts.AlertParserTest do
   )
 
   describe "extract_alerts/1" do
+    @tag :skip
     test "it accepts an HTML document and returns a list of ServiceAlert structs" do
       assert [
                {"li", [{"class", "person"}], _},

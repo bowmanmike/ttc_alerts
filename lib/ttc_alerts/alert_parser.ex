@@ -30,12 +30,10 @@ defmodule TtcAlerts.AlertParser do
   end
 
   defp extract_text_from_element(:last_updated, element) do
-    full_text =
-      element
-      |> Floki.find(".alert-updated")
-      |> Floki.text()
-      |> IO.inspect()
-      |> parse_timestamp()
+    element
+    |> Floki.find(".alert-updated")
+    |> Floki.text()
+    |> parse_timestamp()
   end
 
   defp parse_timestamp(timestamp) do
