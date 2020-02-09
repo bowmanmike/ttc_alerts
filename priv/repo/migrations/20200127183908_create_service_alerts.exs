@@ -10,5 +10,7 @@ defmodule TtcAlerts.Repo.Migrations.CreateServiceAlerts do
 
       timestamps()
     end
+
+    create(unique_index(:service_alerts, [:hashed_text, :active]))
   end
 end

@@ -30,7 +30,9 @@ defmodule TtcAlerts.Schema.ServiceAlert do
   end
 
   defp validate_changeset(changeset) do
-    validate_required(changeset, ~w(raw_text hashed_text active last_updated)a)
+    changeset
+    |> validate_required(~w(raw_text hashed_text active last_updated)a)
+    |> unique_constraint(:hashed_text, name: :service_alerts_hashed_text_active_index)
   end
 
   defp hash_text(changeset) do

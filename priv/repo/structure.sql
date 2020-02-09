@@ -3,7 +3,7 @@
 --
 
 -- Dumped from database version 11.6
--- Dumped by pg_dump version 11.6
+-- Dumped by pg_dump version 12.1
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -17,8 +17,6 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 SET default_tablespace = '';
-
-SET default_with_oids = false;
 
 --
 -- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -
@@ -132,6 +130,13 @@ ALTER TABLE ONLY public.service_alerts
 
 ALTER TABLE ONLY public.users
     ADD CONSTRAINT users_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: service_alerts_hashed_text_active_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX service_alerts_hashed_text_active_index ON public.service_alerts USING btree (hashed_text, active);
 
 
 --
