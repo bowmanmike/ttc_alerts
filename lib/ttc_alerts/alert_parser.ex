@@ -15,7 +15,6 @@ defmodule TtcAlerts.AlertParser do
       parsed_doc
       |> find_alerts(selector)
       |> Enum.map(&extract_data/1)
-
       |> Enum.map(&ServiceAlerts.create/1)
     end
   end
@@ -31,11 +30,12 @@ defmodule TtcAlerts.AlertParser do
   end
 
   defp extract_text_from_element(:last_updated, element) do
-    full_text = element
-    |> Floki.find(".alert-updated")
-    |> Floki.text
-    |> IO.inspect
-    |> parse_timestamp()
+    full_text =
+      element
+      |> Floki.find(".alert-updated")
+      |> Floki.text()
+      |> IO.inspect()
+      |> parse_timestamp()
   end
 
   defp parse_timestamp(timestamp) do
@@ -45,7 +45,6 @@ defmodule TtcAlerts.AlertParser do
     |> Timex.parse("%b %e, %l:%M %p", :strftime)
     |> case do
       {:ok, timestamp} -> timestamp
-
       error -> error
     end
   end
