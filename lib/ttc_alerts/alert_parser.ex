@@ -36,7 +36,7 @@ defmodule TtcAlerts.AlertParser do
     |> parse_timestamp()
   end
 
-  defp parse_timestamp(timestamp) do
+  def parse_timestamp(timestamp) do
     @last_updated_regex
     |> Regex.run(timestamp)
     |> List.first()
