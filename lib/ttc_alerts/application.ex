@@ -6,7 +6,7 @@ defmodule TtcAlerts.Application do
   use Application
 
   def start(_type, _args) do
-    mix_env = Mix.env()
+    mix_env = Application.get_env(:ttc_alerts, :mix_env)
     # List all child processes to be supervised
     children =
       [

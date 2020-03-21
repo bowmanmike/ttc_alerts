@@ -8,7 +8,8 @@
 use Mix.Config
 
 config :ttc_alerts,
-  ecto_repos: [TtcAlerts.Repo]
+  ecto_repos: [TtcAlerts.Repo],
+  mix_env: Mix.env()
 
 # Configures the endpoint
 config :ttc_alerts, TtcAlertsWeb.Endpoint,
