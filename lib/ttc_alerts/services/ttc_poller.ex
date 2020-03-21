@@ -7,6 +7,7 @@ defmodule TtcAlerts.Services.TtcPoller do
 
   alias TtcAlerts.{
     Extractor,
+    Parser,
     Poller
   }
 
@@ -38,6 +39,7 @@ defmodule TtcAlerts.Services.TtcPoller do
     @ttc_alerts_path
     |> Poller.run()
     |> Extractor.run(@ttc_alerts_selector)
+    |> Parser.run()
 
     {:noreply, state}
   end

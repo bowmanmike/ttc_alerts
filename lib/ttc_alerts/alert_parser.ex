@@ -4,6 +4,8 @@ defmodule TtcAlerts.AlertParser do
   relevant information.
   """
 
+  # THIS MODULE DOES WAAAAAAAAAY TOO MUCH
+
   alias TtcAlerts.ServiceAlerts
 
   @default_selector "div.advisory-wrap > div.alert-content"
@@ -23,10 +25,11 @@ defmodule TtcAlerts.AlertParser do
     last_updated = extract_text_from_element(:last_updated, alert)
     raw_text = extract_text_from_element(:raw_text, alert)
 
-    %{}
-    |> Map.put(:last_updated, last_updated)
-    |> Map.put(:raw_text, raw_text)
-    |> Map.put(:active, true)
+    %{
+      last_updated: last_updated,
+      raw_text: raw_text,
+      active: true
+    }
   end
 
   defp extract_text_from_element(:last_updated, element) do

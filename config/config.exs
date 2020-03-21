@@ -17,8 +17,7 @@ config :ttc_alerts, TtcAlertsWeb.Endpoint,
   render_errors: [view: TtcAlertsWeb.ErrorView, accepts: ~w(html json)],
   pubsub: [name: TtcAlerts.PubSub, adapter: Phoenix.PubSub.PG2]
 
-config :ttc_alerts, TtcAlerts.Poller,
-  http_client: TtcAlerts.HTTPClient
+config :ttc_alerts, TtcAlerts.Poller, http_client: TtcAlerts.HTTPClient
 
 # Configures Elixir's Logger
 config :logger, :console,

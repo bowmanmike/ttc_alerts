@@ -30,7 +30,8 @@ defmodule TtcAlerts.AlertParserTest do
 
   describe "parse_timestamp/1" do
     test "it extracts the timestamp from a raw alert string" do
-      test_str = "Queen's Park: Elevator out of service between concourse and Line 1 platform.Last updated Feb 8, 10:20 PM"
+      test_str =
+        "Queen's Park: Elevator out of service between concourse and Line 1 platform.Last updated Feb 8, 10:20 PM"
 
       assert ~N[2020-02-08 22:20:00] == AlertParser.parse_timestamp(test_str)
     end
