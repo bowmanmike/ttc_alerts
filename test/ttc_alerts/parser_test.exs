@@ -4,8 +4,26 @@ defmodule TtcAlerts.ParserTest do
   alias TtcAlerts.Parser
 
   describe "run/1" do
-    test "it works" do
-      assert false
+    test "it returns a list of maps containing the correct attributes" do
+      elements = [
+        ~s(Bathurst: Elevator out of service between Bathurst St east side entrance, concourse and Line 2 westbound platform.Last updated Mar 16, 4:06 PM),
+        ~s(Line 1: This weekend, there will be no subway service between Lawrence and St Clair due to ATC signal upgrades. Shuttle buses will run.Last updated Mar 20, 6:41 AM)
+      ]
+
+      result = Parser.run(elements)
+
+      assert is_list(result)
+      assert Enum.all?(result, &is_map/1)
+    end
+
+    test "it parses all the correct attributes" do
+      element = ~s(Line 1: This weekend, there will be no subway service between Lawrence and St Clair due to ATC signal upgrades. Shuttle buses will run.Last updated Mar 20, 6:41 AM)
+
+      assert [%{
+        active: true,
+        last_updated: ~N[2020-03-20 06:41:00],
+        raw_text: "Line 1: This weekend, there will be no subway service between Lawrence and St Clair due to ATC signal upgrades. Shuttle buses will run.Last updated Mar 20, 6:41 AM"
+      }] = Parser.run(element)
     end
   end
 end
