@@ -17,13 +17,17 @@ defmodule TtcAlerts.ParserTest do
     end
 
     test "it parses all the correct attributes" do
-      element = ~s(Line 1: This weekend, there will be no subway service between Lawrence and St Clair due to ATC signal upgrades. Shuttle buses will run.Last updated Mar 20, 6:41 AM)
+      element =
+        ~s(Line 1: This weekend, there will be no subway service between Lawrence and St Clair due to ATC signal upgrades. Shuttle buses will run.Last updated Mar 20, 6:41 AM)
 
-      assert [%{
-        active: true,
-        last_updated: ~N[2020-03-20 06:41:00],
-        raw_text: "Line 1: This weekend, there will be no subway service between Lawrence and St Clair due to ATC signal upgrades. Shuttle buses will run.Last updated Mar 20, 6:41 AM"
-      }] = Parser.run(element)
+      assert [
+               %{
+                 active: true,
+                 last_updated: ~N[2020-03-20 06:41:00],
+                 raw_text:
+                   "Line 1: This weekend, there will be no subway service between Lawrence and St Clair due to ATC signal upgrades. Shuttle buses will run.Last updated Mar 20, 6:41 AM"
+               }
+             ] = Parser.run(element)
     end
   end
 end

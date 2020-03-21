@@ -3,7 +3,6 @@ defmodule TtcAlerts.Parser do
   Parses text into Elixir-native data structures
   """
 
-  # @last_updated_regex ~r<(([A-Z][a-z]{2} \d{1,2}, )?\d{1,2}:\d{1,2} (AM|PM))>
   @last_updated_regex ~r<[A-Z][a-z]{2} \d{2}, \d:\d{2} (?:AM|PM)$>
 
   def run(elements) when is_list(elements) do
@@ -26,7 +25,7 @@ defmodule TtcAlerts.Parser do
     @last_updated_regex
     |> Regex.run(element)
     |> List.first()
-    |> prepend_current_year()
+    |> prepend_current_year_if_missing()
     |> Timex.parse("%Y %b %e, %l:%M %p", :strftime)
     |> case do
       {:ok, timestamp} -> timestamp
@@ -34,7 +33,12 @@ defmodule TtcAlerts.Parser do
     end
   end
 
-  defp prepend_current_year(string) do
-    "#{Timex.now.year} #{string}"
+  defp prepend_current_year_if_missing(string) do
+    current_year_string = to_string(Timex.now().year)
+
+    case String.starts_with?(string, current_year_string) do
+      false -> current_year_string <> " " <> string
+      true -> string
+    end
   end
 end
