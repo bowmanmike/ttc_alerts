@@ -5,10 +5,15 @@ defmodule TtcAlerts.Services.TtcPoller do
 
   use GenServer
 
-  alias TtcAlerts.AlertParser
+  alias TtcAlerts.{
+    Extractor,
+    Poller
+  }
 
+  # 1 hour interval
   @poll_interval 1000 * 60 * 60
-  @ttc_alerts_url "https://www.ttc.ca/Service_Advisories/all_service_alerts.jsp"
+  @ttc_alerts_path "/Service_Advisories/all_service_alerts.jsp"
+  @ttc_alerts_selector "div.advisory-wrap > div.alert-content"
 
   def start_link(arg) do
     GenServer.start_link(__MODULE__, arg)
@@ -30,18 +35,14 @@ defmodule TtcAlerts.Services.TtcPoller do
   def handle_info(:poll, state) do
     schedule_work()
 
-    get_alerts_page()
+    @ttc_alerts_path
+    |> Poller.run()
+    |> Extractor.run(@ttc_alerts_selector)
 
     {:noreply, state}
   end
 
   defp schedule_work do
     Process.send_after(self(), :poll, @poll_interval)
-  end
-
-  defp get_alerts_page do
-    {:ok, %{body: body}} = HTTPoison.get(@ttc_alerts_url)
-
-    AlertParser.extract_alerts(body)
   end
 end
