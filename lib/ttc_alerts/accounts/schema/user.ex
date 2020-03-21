@@ -1,4 +1,4 @@
-defmodule TtcAlerts.Schema.User do
+defmodule TtcAlerts.Accounts.Schema.User do
   @moduledoc """
   Represents the main user entity
   """
