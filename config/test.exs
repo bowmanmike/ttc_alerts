@@ -15,5 +15,7 @@ config :ttc_alerts, TtcAlertsWeb.Endpoint,
   http: [port: 4002],
   server: false
 
+config :ttc_alerts, TtcAlerts.Poller,
+  http_client: TtcMock
 # Print only warnings and errors during test
 config :logger, level: :warn

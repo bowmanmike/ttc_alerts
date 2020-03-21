@@ -6,6 +6,7 @@ defmodule TtcAlerts.Application do
   use Application
 
   def start(_type, _args) do
+    mix_env = Mix.env()
     # List all child processes to be supervised
     children = [
       # Start the Ecto repository
@@ -14,8 +15,8 @@ defmodule TtcAlerts.Application do
       TtcAlertsWeb.Endpoint,
       # Starts a worker by calling: TtcAlerts.Worker.start_link(arg)
       # {TtcAlerts.Worker, arg},
-      {TtcAlerts.Services.TtcPoller, []}
     ]
+    |> ttc_poller(mix_env)
 
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options
@@ -29,4 +30,8 @@ defmodule TtcAlerts.Application do
     TtcAlertsWeb.Endpoint.config_change(changed, removed)
     :ok
   end
+
+  defp ttc_poller(children, mix_env) when mix_env == :test, do: children
+
+  defp ttc_poller(children, _mix_env), do: children ++ [{TtcAlerts.Services.TtcPoller, []}]
 end

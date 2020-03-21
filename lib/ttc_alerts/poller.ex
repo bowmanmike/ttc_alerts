@@ -3,11 +3,11 @@ defmodule TtcAlerts.Poller do
   Encapsulates logic for polling a given URL
   """
 
-  alias TtcAlerts.HTTPClient
-
   def run(path) do
-    {:ok, %{body: body, status_code: 200}} = HTTPClient.get(path)
+    {:ok, %{body: body, status_code: 200}} = client().get(path)
 
     body
   end
+
+  defp client, do: Application.get_env(:ttc_alerts, __MODULE__)[:http_client]
 end
