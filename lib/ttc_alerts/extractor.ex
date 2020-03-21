@@ -12,5 +12,9 @@ defmodule TtcAlerts.Extractor do
 
   defp parse_document(document), do: Floki.parse_document(document)
 
-  defp find_alerts(document, selector), do: Floki.find(document, selector)
+  defp find_alerts(document, selector) do
+    document
+    |> Floki.find(selector)
+    |> Enum.map(&Floki.text/1)
+  end
 end

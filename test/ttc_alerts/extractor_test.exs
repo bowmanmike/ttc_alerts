@@ -18,12 +18,8 @@ defmodule TtcAlerts.ExtractorTest do
   )
 
   describe "run/2" do
-    test "returns the relevant parsed HTML fragments" do
-      assert [
-               {"li", [{"class", "person"}], _},
-               {"li", [{"class", "person"}], _},
-               {"li", [{"class", "person"}], _}
-             ] = Extractor.run(@html_doc, ".person")
+    test "returns the text from inside each element" do
+      assert ["Mike!", "Jasmine!", "Dave!"] = Extractor.run(@html_doc, ".person")
     end
   end
 end
