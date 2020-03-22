@@ -8,7 +8,8 @@ defmodule TtcAlerts.Services.TtcPoller do
   alias TtcAlerts.{
     Extractor,
     Parser,
-    Poller
+    Poller,
+    ServiceAlerts
   }
 
   # 1 hour interval
@@ -39,7 +40,9 @@ defmodule TtcAlerts.Services.TtcPoller do
     @ttc_alerts_path
     |> Poller.run()
     |> Extractor.run(@ttc_alerts_selector)
-    |> Parser.run()
+
+    # |> Parser.run()
+    # |> Enum.each(&ServiceAlerts.create/1)
 
     {:noreply, state}
   end
