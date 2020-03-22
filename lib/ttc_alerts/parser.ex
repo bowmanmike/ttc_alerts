@@ -3,7 +3,7 @@ defmodule TtcAlerts.Parser do
   Parses text into Elixir-native data structures
   """
 
-  @last_updated_regex ~r<[A-Z][a-z]{2} \d{2}, \d:\d{2} (?:AM|PM)$>
+  @last_updated_regex ~r/(?<date>[A-Z][a-z]{2} \d{2})?,? (?<time>\d:\d{2} (?:AM|PM))$/
 
   def run(elements) when is_list(elements) do
     Enum.map(elements, &extract_fields/1)
@@ -23,7 +23,11 @@ defmodule TtcAlerts.Parser do
 
   defp parse_field(element, :last_updated) do
     @last_updated_regex
-    |> Regex.run(element)
+    |> Regex.named_captures(element)
+    |> case do
+      # need to check here whether or not the date is included in the string
+      e -> e
+    end
     |> List.first()
     |> prepend_current_year_if_missing()
     |> Timex.parse("%Y %b %e, %l:%M %p", :strftime)
@@ -40,5 +44,8 @@ defmodule TtcAlerts.Parser do
       false -> current_year_string <> " " <> string
       true -> string
     end
+  end
+
+  defp add_date_if_missing(string) do
   end
 end

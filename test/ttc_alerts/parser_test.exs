@@ -32,16 +32,18 @@ defmodule TtcAlerts.ParserTest do
 
     test "it adds the current date when none is provided" do
       element =
-        ~s("110 Islington South: Detour via Norseman St, Kipling Ave and The Queensway due to a Hydro Pole down.Last updated 1:20 PM")
+        ~s(110 Islington South: Detour via Norseman St, Kipling Ave and The Queensway due to a Hydro Pole down.Last updated 1:20 PM)
 
-      {:ok, expected_timestamp} = Timex.now() |> Timex.to_date() |> Timex.format()
+      expected_timestamp =
+        Timex.now()
+        |> Timex.to_naive_datetime()
+        |> Timex.shift(hours: 13, minutes: 20)
 
-      # add current date into timestamp
       assert [
-        %{
-          last_updated: :hello
-        }
-      ]
+               %{
+                 last_updated: ^expected_timestamp
+               }
+             ] = Parser.run(element)
     end
   end
 end
