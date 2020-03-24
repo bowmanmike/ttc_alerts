@@ -36,6 +36,7 @@ defmodule TtcAlerts.ParserTest do
 
       expected_timestamp =
         Timex.now()
+        |> Timex.to_date()
         |> Timex.to_naive_datetime()
         |> Timex.shift(hours: 13, minutes: 20)
 

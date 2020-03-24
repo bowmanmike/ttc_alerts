@@ -25,16 +25,27 @@ defmodule TtcAlerts.Parser do
     @last_updated_regex
     |> Regex.named_captures(element)
     |> case do
-      # need to check here whether or not the date is included in the string
-      e -> e
+      %{"date" => date, "time" => time} when date == "" ->
+        timestamp_for_today(time)
+        |> Timex.parse("%Y %b %e, %l:%M %p", :strftime)
+
+      %{"date" => date, "time" => time} ->
+        time_string = date <> ", " <> time
+        prepend_current_year_if_missing(time_string)
     end
-    |> List.first()
-    |> prepend_current_year_if_missing()
-    |> Timex.parse("%Y %b %e, %l:%M %p", :strftime)
-    |> case do
-      {:ok, timestamp} -> timestamp
-      error -> error
-    end
+  end
+
+  defp timestamp_for_today(time) do
+    {:ok, date} =
+      Timex.now()
+      |> Timex.to_date()
+      |> Timex.format("%Y %b %e", :strftime)
+
+    {:ok, full_timestamp} =
+      (date <> ", " <> time)
+      |> Timex.parse("%Y %b %e, %l:%M %p", :strftime)
+
+    full_timestamp
   end
 
   defp prepend_current_year_if_missing(string) do
@@ -44,8 +55,5 @@ defmodule TtcAlerts.Parser do
       false -> current_year_string <> " " <> string
       true -> string
     end
-  end
-
-  defp add_date_if_missing(string) do
   end
 end
