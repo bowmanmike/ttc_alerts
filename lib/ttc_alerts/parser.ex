@@ -27,11 +27,15 @@ defmodule TtcAlerts.Parser do
     |> case do
       %{"date" => date, "time" => time} when date == "" ->
         timestamp_for_today(time)
-        |> Timex.parse("%Y %b %e, %l:%M %p", :strftime)
 
       %{"date" => date, "time" => time} ->
-        time_string = date <> ", " <> time
-        prepend_current_year_if_missing(time_string)
+        (date <> ", " <> time)
+        |> prepend_current_year_if_missing()
+        |> Timex.parse("%Y %b %e, %l:%M %p", :strftime)
+        |> case do
+          {:ok, parsed_datetime} -> parsed_datetime
+          error -> error
+        end
     end
   end
 

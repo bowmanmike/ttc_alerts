@@ -4,7 +4,7 @@ defmodule TtcAlerts.Users do
   """
   use TtcAlerts.Context
 
-  alias TtcAlerts.Schema.User
+  alias TtcAlerts.Accounts.Schema.User
 
   def all do
     Repo.all(User)
