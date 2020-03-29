@@ -29,7 +29,15 @@ defmodule TtcAlerts.ServiceAlerts do
     |> Repo.insert()
   end
 
-  def mark_inactive(_new_alerts) do
+  # going to run into issues because the hashing is done on insert
+  # Probably need to move that into it's own step
+  # Might also need a function to get an alert by it's hash... but can that be unique?
+  # would need an index and probably a uniqueness guarantee
+  def find_outdated(new_alerts) do
+    existing_alerts_set = list(:active) |> Enum.into(MapSet.new())
+    new_alerts_set = Enum.into(new_alerts, MapSet.new())
+    # require IEx; IEx.pry()
+
     :ok
   end
 end
