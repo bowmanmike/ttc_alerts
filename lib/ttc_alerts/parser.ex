@@ -3,7 +3,7 @@ defmodule TtcAlerts.Parser do
   Parses text into Elixir-native data structures
   """
 
-  @last_updated_regex ~r/(?<date>[A-Z][a-z]{2} \d{2})?,? (?<time>\d:\d{2} (?:AM|PM))$/
+  @last_updated_regex ~r/(?<date>[A-Z][a-z]{2} \d{2})?,? (?<time>\d{1,2}:\d{2} (?:AM|PM))$/
 
   def run(elements) when is_list(elements) do
     Enum.map(elements, &extract_fields/1)
