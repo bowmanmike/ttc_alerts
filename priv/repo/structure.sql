@@ -34,7 +34,7 @@ CREATE TABLE public.schema_migrations (
 
 CREATE TABLE public.service_alerts (
     id bigint NOT NULL,
-    raw_text character varying(255) NOT NULL,
+    raw_text text NOT NULL,
     hashed_text character varying(255) NOT NULL,
     active boolean DEFAULT true NOT NULL,
     last_updated timestamp(0) without time zone NOT NULL,
@@ -143,5 +143,5 @@ CREATE UNIQUE INDEX service_alerts_hashed_text_active_index ON public.service_al
 -- PostgreSQL database dump complete
 --
 
-INSERT INTO public."schema_migrations" (version) VALUES (20200123015758), (20200127183908);
+INSERT INTO public."schema_migrations" (version) VALUES (20200123015758), (20200127183908), (20200329163452);
 
