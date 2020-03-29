@@ -26,6 +26,7 @@ defmodule TtcAlerts.MixProject do
 
   # Specifies which paths to compile per environment.
   defp elixirc_paths(:test), do: ["lib", "test/support"]
+  defp elixirc_paths(:dev), do: ["lib", "test/support/factories", "test/support/factory.ex"]
   defp elixirc_paths(_), do: ["lib"]
 
   # Specifies your project dependencies.
@@ -36,13 +37,13 @@ defmodule TtcAlerts.MixProject do
       {:credo, "~> 1.1.0", only: [:dev, :test], runtime: false},
       {:dialyxir, "~> 1.0.0-rc.7", only: [:dev], runtime: false},
       {:ecto_sql, "~> 3.1"},
-      {:ex_machina, "~> 2.3", only: :test},
-      {:faker, "~> 0.13", only: :test},
+      {:ex_machina, "~> 2.3", only: [:dev, :test]},
+      {:faker, "~> 0.13", only: [:dev, :test]},
       {:floki, "~> 0.25.0"},
       {:gettext, "~> 0.11"},
       {:httpoison, "~> 1.6"},
       {:jason, "~> 1.0"},
-      {:mox, "~> 0.5", only: :test},
+      {:mox, "~> 0.5", only: [:dev, :test]},
       {:phoenix, "~> 1.4.11"},
       {:phoenix_ecto, "~> 4.0"},
       {:phoenix_html, "~> 2.11"},
