@@ -40,9 +40,8 @@ defmodule TtcAlerts.Services.TtcPoller do
     @ttc_alerts_path
     |> Poller.run()
     |> Extractor.run(@ttc_alerts_selector)
-
-    # |> Parser.run()
-    # |> Enum.each(&ServiceAlerts.create/1)
+    |> Parser.run()
+    |> Enum.each(&ServiceAlerts.create/1)
 
     {:noreply, state}
   end
