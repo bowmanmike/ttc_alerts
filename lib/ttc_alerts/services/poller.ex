@@ -1,24 +1,20 @@
-defmodule TtcAlerts.Services.TtcPoller do
+defmodule TtcAlerts.Services.Poller do
   @moduledoc """
   Periodically poll the TTC Service Alerts page.
   """
 
   use GenServer
 
-  alias TtcAlerts.{
-    Extractor,
-    Parser,
-    Poller,
-    ServiceAlerts
-  }
+  alias TtcAlerts.Poller
+
+  alias TtcAlerts.Services.AlertHandler
 
   # 1 hour interval
   @poll_interval 1000 * 60 * 60
   @ttc_alerts_path "/Service_Advisories/all_service_alerts.jsp"
-  @ttc_alerts_selector "div.advisory-wrap > div.alert-content"
 
   def start_link(arg) do
-    GenServer.start_link(__MODULE__, arg)
+    GenServer.start_link(__MODULE__, arg, name: __MODULE__)
   end
 
   def poll(pid, _) do
@@ -39,9 +35,7 @@ defmodule TtcAlerts.Services.TtcPoller do
 
     @ttc_alerts_path
     |> Poller.run()
-    |> Extractor.run(@ttc_alerts_selector)
-    |> Parser.run()
-    |> Enum.each(&ServiceAlerts.create/1)
+    |> AlertHandler.extract()
 
     {:noreply, state}
   end

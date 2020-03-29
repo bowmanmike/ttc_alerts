@@ -13,9 +13,10 @@ defmodule TtcAlerts.Application do
         # Start the Ecto repository
         TtcAlerts.Repo,
         # Start the endpoint when the application starts
-        TtcAlertsWeb.Endpoint
+        TtcAlertsWeb.Endpoint,
         # Starts a worker by calling: TtcAlerts.Worker.start_link(arg)
         # {TtcAlerts.Worker, arg},
+        {TtcAlerts.Services.AlertHandler, []}
       ]
       |> ttc_poller(mix_env)
 
@@ -34,5 +35,5 @@ defmodule TtcAlerts.Application do
 
   defp ttc_poller(children, mix_env) when mix_env == :test, do: children
 
-  defp ttc_poller(children, _mix_env), do: children ++ [{TtcAlerts.Services.TtcPoller, []}]
+  defp ttc_poller(children, _mix_env), do: children ++ [{TtcAlerts.Services.Poller, []}]
 end
