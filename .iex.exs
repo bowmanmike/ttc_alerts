@@ -11,7 +11,5 @@ alias TtcAlerts.{
   Users
 }
 
-alias TtcAlerts.Schema.{
-  ServiceAlert,
-  User
-}
+alias TtcAlerts.Account.Schema.User
+alias TtcAlerts.Schema.ServiceAlert
