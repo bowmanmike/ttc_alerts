@@ -28,4 +28,8 @@ defmodule TtcAlerts.ServiceAlerts do
     |> ServiceAlert.create_changeset(params)
     |> Repo.insert()
   end
+
+  def mark_inactive(_new_alerts) do
+    :ok
+  end
 end
