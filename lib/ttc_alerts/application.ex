@@ -16,7 +16,8 @@ defmodule TtcAlerts.Application do
         TtcAlertsWeb.Endpoint,
         # Starts a worker by calling: TtcAlerts.Worker.start_link(arg)
         # {TtcAlerts.Worker, arg},
-        {TtcAlerts.Services.AlertHandler, []}
+        {TtcAlerts.Services.AlertHandler, []},
+        TtcAlertsWeb.Telemetry
       ]
       |> ttc_poller(mix_env)
 
