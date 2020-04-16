@@ -13,6 +13,7 @@ config :ttc_alerts,
 
 # Configures the endpoint
 config :ttc_alerts, TtcAlertsWeb.Endpoint,
+  live_view: [signing_salt: "G/82AiyZGH6YqQNzZJCK7+ep6OpwCarU"],
   url: [host: "localhost"],
   secret_key_base: "CgA+jz3aDxCVf2IfW6s9VpxIV94wsfjdlPTTDZrFP+jcU4z7i8FBpXWb+nY+7NyT",
   render_errors: [view: TtcAlertsWeb.ErrorView, accepts: ~w(html json)],
