@@ -10,7 +10,7 @@
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
 alias TtcAlerts.Repo
-alias TtcAlerts.Schema.User
+alias TtcAlerts.Accounts.Schema.User
 
 mike_phone_num = System.fetch_env!("MIKE_PHONE_NUM")
 jasmine_phone_num = System.fetch_env!("JASMINE_PHONE_NUM")
