@@ -44,12 +44,12 @@ defmodule TtcAlerts.MixProject do
       {:httpoison, "~> 1.6"},
       {:jason, "~> 1.0"},
       {:mox, "~> 0.5", only: [:dev, :test]},
-      {:phoenix, "~> 1.4.11"},
+      {:phoenix, "~> 1.5", override: true},
       {:phoenix_ecto, "~> 4.0"},
       {:phoenix_html, "~> 2.11"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
-      {:phoenix_pubsub, "~> 1.1"},
-      {:plug_cowboy, "~> 2.0"},
+      {:phoenix_pubsub, "~> 2.0"},
+      {:plug_cowboy, "~> 2.1"},
       {:postgrex, ">= 0.0.0"},
       {:timex, "~> 3.6"}
     ]
