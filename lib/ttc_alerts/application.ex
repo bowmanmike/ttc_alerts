@@ -13,10 +13,12 @@ defmodule TtcAlerts.Application do
         # Start the Ecto repository
         TtcAlerts.Repo,
         # Start the endpoint when the application starts
+        {Phoenix.PubSub, name: TtcAlerts.PubSub, adapter: Phoenix.PubSub.PG2},
         TtcAlertsWeb.Endpoint,
         # Starts a worker by calling: TtcAlerts.Worker.start_link(arg)
         # {TtcAlerts.Worker, arg},
         {TtcAlerts.Services.AlertHandler, []}
+        # {Phoenix.PubSub, [name: TtcAlerts.PubSub, adapter: Phoenix.PubSub.PG2]}
       ]
       |> ttc_poller(mix_env)
 
