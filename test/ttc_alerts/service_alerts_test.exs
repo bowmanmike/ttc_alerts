@@ -13,7 +13,7 @@ defmodule TtcAlerts.ServiceAlertsTest do
     test "returns the correct number of alerts given the corresponding flag" do
       insert(:service_alert, active: false)
       insert(:service_alert, active: false)
-      insert(:service_alert)
+      insert(:service_alert, active: true)
 
       assert Enum.count(ServiceAlerts.list(:active)) == 1
       assert Enum.count(ServiceAlerts.list(:inactive)) == 2
