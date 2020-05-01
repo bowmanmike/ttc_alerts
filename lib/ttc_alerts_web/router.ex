@@ -7,6 +7,7 @@ defmodule TtcAlertsWeb.Router do
     plug :fetch_live_flash
     plug :protect_from_forgery
     plug :put_secure_browser_headers
+    plug :put_root_layout, {TtcAlertsWeb.LayoutView, :app}
   end
 
   pipeline :api do
@@ -17,6 +18,8 @@ defmodule TtcAlertsWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
+
+    live "/hello", HelloLive
   end
 
   # Other scopes may use custom stacks.
