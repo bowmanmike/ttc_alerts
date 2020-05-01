@@ -15,6 +15,7 @@ defmodule TtcAlerts.Application do
         # Start the endpoint when the application starts
         {Phoenix.PubSub, name: TtcAlerts.PubSub, adapter: Phoenix.PubSub.PG2},
         TtcAlertsWeb.Endpoint,
+        TtcAlertsWeb.Telemetry,
         # Starts a worker by calling: TtcAlerts.Worker.start_link(arg)
         # {TtcAlerts.Worker, arg},
         {TtcAlerts.Services.AlertHandler, []}

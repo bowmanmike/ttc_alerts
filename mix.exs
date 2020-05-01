@@ -20,7 +20,7 @@ defmodule TtcAlerts.MixProject do
   def application do
     [
       mod: {TtcAlerts.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools, :os_mon]
     ]
   end
 
@@ -47,11 +47,14 @@ defmodule TtcAlerts.MixProject do
       {:phoenix, "~> 1.5.1", override: true},
       {:phoenix_ecto, "~> 4.0"},
       {:phoenix_html, "~> 2.14"},
+      {:phoenix_live_dashboard, "~> 0.2.1"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
-      {:phoenix_live_view, "~> 0.11.1"},
+      {:phoenix_live_view, "~> 0.12"},
       {:phoenix_pubsub, "~> 2.0"},
       {:plug_cowboy, "~> 2.1"},
       {:postgrex, ">= 0.0.0"},
+      {:telemetry_poller, "~> 0.4"},
+      {:telemetry_metrics, "~> 0.4"},
       {:timex, "~> 3.6"}
     ]
   end

@@ -1,5 +1,6 @@
 defmodule TtcAlertsWeb.Router do
   use TtcAlertsWeb, :router
+  import Phoenix.LiveDashboard.Router
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -20,6 +21,13 @@ defmodule TtcAlertsWeb.Router do
     get "/", PageController, :index
 
     live "/hello", HelloLive
+  end
+
+  if Mix.env() == :dev do
+    scope "/" do
+      pipe_through :browser
+      live_dashboard "/dashboard", metrics: TtcAlertsWeb.Telemetry
+    end
   end
 
   # Other scopes may use custom stacks.
