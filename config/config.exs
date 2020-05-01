@@ -16,7 +16,10 @@ config :ttc_alerts, TtcAlertsWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "CgA+jz3aDxCVf2IfW6s9VpxIV94wsfjdlPTTDZrFP+jcU4z7i8FBpXWb+nY+7NyT",
   render_errors: [view: TtcAlertsWeb.ErrorView, accepts: ~w(html json)],
-  pubsub_server: TtcAlerts.PubSub
+  pubsub_server: TtcAlerts.PubSub,
+  live_view: [
+    signing_salt: "Hm4tOUanHepTkRk01GZlroW8EzC5+xuc"
+  ]
 
 config :ttc_alerts, TtcAlerts.Poller, http_client: TtcAlerts.HTTPClient
 

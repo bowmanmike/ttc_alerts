@@ -24,6 +24,8 @@ defmodule TtcAlertsWeb do
       import Plug.Conn
       import TtcAlertsWeb.Gettext
       alias TtcAlertsWeb.Router.Helpers, as: Routes
+
+      import Phoenix.LiveView.Controller
     end
   end
 
@@ -42,6 +44,8 @@ defmodule TtcAlertsWeb do
       import TtcAlertsWeb.ErrorHelpers
       import TtcAlertsWeb.Gettext
       alias TtcAlertsWeb.Router.Helpers, as: Routes
+
+      import Phoenix.LiveView.Helpers
     end
   end
 
@@ -50,6 +54,8 @@ defmodule TtcAlertsWeb do
       use Phoenix.Router
       import Plug.Conn
       import Phoenix.Controller
+
+      import Phoenix.LiveView.Router
     end
   end
 
