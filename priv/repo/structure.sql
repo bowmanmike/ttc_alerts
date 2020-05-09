@@ -63,49 +63,10 @@ ALTER SEQUENCE public.service_alerts_id_seq OWNED BY public.service_alerts.id;
 
 
 --
--- Name: users; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.users (
-    id bigint NOT NULL,
-    name character varying(255) NOT NULL,
-    phone_number character varying(255) NOT NULL,
-    inserted_at timestamp(0) without time zone NOT NULL,
-    updated_at timestamp(0) without time zone NOT NULL
-);
-
-
---
--- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.users_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.users_id_seq OWNED BY public.users.id;
-
-
---
 -- Name: service_alerts id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.service_alerts ALTER COLUMN id SET DEFAULT nextval('public.service_alerts_id_seq'::regclass);
-
-
---
--- Name: users id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_id_seq'::regclass);
 
 
 --
@@ -125,14 +86,6 @@ ALTER TABLE ONLY public.service_alerts
 
 
 --
--- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.users
-    ADD CONSTRAINT users_pkey PRIMARY KEY (id);
-
-
---
 -- Name: service_alerts_hashed_text_active_index; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -143,5 +96,5 @@ CREATE UNIQUE INDEX service_alerts_hashed_text_active_index ON public.service_al
 -- PostgreSQL database dump complete
 --
 
-INSERT INTO public."schema_migrations" (version) VALUES (20200123015758), (20200127183908), (20200329163452);
+INSERT INTO public."schema_migrations" (version) VALUES (20200127183908), (20200329163452);
 
