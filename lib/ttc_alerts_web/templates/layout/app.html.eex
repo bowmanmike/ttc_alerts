@@ -9,6 +9,7 @@
     <%= csrf_meta_tag() %>
   </head>
   <body>
+    <%= render "_user_menu.html", assigns %>
     <header>
       <section class="container">
         <h1>TTC?!?!?</h1>
