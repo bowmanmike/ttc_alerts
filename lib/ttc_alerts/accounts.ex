@@ -3,8 +3,8 @@ defmodule TtcAlerts.Accounts do
   Main Accounts context.
   """
 
+  alias TtcAlerts.Accounts.{User, UserNotifier, UserToken}
   alias TtcAlerts.Repo
-  alias TtcAlerts.Accounts.{User, UserToken, UserNotifier}
 
   ## Database getters
 

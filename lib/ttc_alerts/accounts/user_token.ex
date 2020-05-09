@@ -1,4 +1,7 @@
 defmodule TtcAlerts.Accounts.UserToken do
+  @moduledoc """
+  Context and schema for handling UserTokens
+  """
   use Ecto.Schema
   import Ecto.Query
 
@@ -134,6 +137,7 @@ defmodule TtcAlerts.Accounts.UserToken do
   end
 
   def user_and_contexts_query(user, [_ | _] = contexts) do
-    from t in TtcAlerts.Accounts.UserToken, where: t.user_id == ^user.id and t.context in ^contexts
+    from t in TtcAlerts.Accounts.UserToken,
+      where: t.user_id == ^user.id and t.context in ^contexts
   end
 end

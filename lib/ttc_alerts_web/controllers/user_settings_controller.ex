@@ -2,7 +2,7 @@ defmodule TtcAlertsWeb.UserSettingsController do
   use TtcAlertsWeb, :controller
 
   alias TtcAlerts.Accounts
-  alias TtcAlertsWeb.UserAuth
+  alias TtcAlertsWeb.UserAuthController
 
   plug :assign_email_and_password_changesets
 
@@ -55,7 +55,7 @@ defmodule TtcAlertsWeb.UserSettingsController do
         conn
         |> put_flash(:info, "Password updated successfully.")
         |> put_session(:user_return_to, Routes.user_settings_path(conn, :edit))
-        |> UserAuth.login_user(user)
+        |> UserAuthController.login_user(user)
 
       {:error, changeset} ->
         render(conn, "edit.html", password_changeset: changeset)

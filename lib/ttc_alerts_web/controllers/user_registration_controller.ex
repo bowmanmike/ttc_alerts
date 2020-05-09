@@ -3,7 +3,7 @@ defmodule TtcAlertsWeb.UserRegistrationController do
 
   alias TtcAlerts.Accounts
   alias TtcAlerts.Accounts.User
-  alias TtcAlertsWeb.UserAuth
+  alias TtcAlertsWeb.UserAuthController
 
   def new(conn, _params) do
     changeset = Accounts.change_user_registration(%User{})
@@ -21,7 +21,7 @@ defmodule TtcAlertsWeb.UserRegistrationController do
 
         conn
         |> put_flash(:info, "User created successfully.")
-        |> UserAuth.login_user(user)
+        |> UserAuthController.login_user(user)
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "new.html", changeset: changeset)

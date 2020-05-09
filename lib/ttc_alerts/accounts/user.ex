@@ -1,4 +1,8 @@
 defmodule TtcAlerts.Accounts.User do
+  @moduledoc """
+  Context and schema for User
+  """
+
   use Ecto.Schema
   import Ecto.Changeset
 

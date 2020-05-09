@@ -1,4 +1,8 @@
 defmodule TtcAlerts.Accounts.UserNotifier do
+  @moduledoc """
+  Notifies user about various account information
+  """
+
   # For simplicity, this module simply logs messages to the terminal.
   # You should replace it by a proper e-mail or notification tool, such as:
   #

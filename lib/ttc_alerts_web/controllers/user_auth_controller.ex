@@ -1,4 +1,4 @@
-defmodule TtcAlertsWeb.UserAuth do
+defmodule TtcAlertsWeb.UserAuthController do
   import Plug.Conn
   import Phoenix.Controller
 
