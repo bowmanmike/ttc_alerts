@@ -1,7 +1,7 @@
 defmodule TtcAlertsWeb.Router do
   use TtcAlertsWeb, :router
 
-  import TtcAlertsWeb.UserAuthController
+  import TtcAlertsWeb.Helpers.UserAuth
   import Phoenix.LiveDashboard.Router
 
   pipeline :browser do

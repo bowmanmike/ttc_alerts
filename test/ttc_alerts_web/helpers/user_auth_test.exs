@@ -1,8 +1,8 @@
-defmodule TtcAlertsWeb.UserAuthControllerTest do
+defmodule TtcAlertsWeb.Helpers.UserAuthTest do
   use TtcAlertsWeb.ConnCase, async: true
 
   alias TtcAlerts.Accounts
-  alias TtcAlertsWeb.UserAuthController
+  alias TtcAlertsWeb.Helpers.UserAuth
 
   import TtcAlerts.AccountsFixtures
 
@@ -17,25 +17,25 @@ defmodule TtcAlertsWeb.UserAuthControllerTest do
 
   describe "login_user/3" do
     test "stores the user token in the session", %{conn: conn, user: user} do
-      conn = UserAuthController.login_user(conn, user)
+      conn = UserAuth.login_user(conn, user)
       assert token = get_session(conn, :user_token)
       assert redirected_to(conn) == "/"
       assert Accounts.get_user_by_session_token(token)
     end
 
     test "clears everything previously stored in the session", %{conn: conn, user: user} do
-      conn = conn |> put_session(:to_be_removed, "value") |> UserAuthController.login_user(user)
+      conn = conn |> put_session(:to_be_removed, "value") |> UserAuth.login_user(user)
       refute get_session(conn, :to_be_removed)
     end
 
     test "redirects to the configured path", %{conn: conn, user: user} do
-      conn = conn |> put_session(:user_return_to, "/hello") |> UserAuthController.login_user(user)
+      conn = conn |> put_session(:user_return_to, "/hello") |> UserAuth.login_user(user)
       assert redirected_to(conn) == "/hello"
     end
 
     test "writes a cookie if remember_me is configured", %{conn: conn, user: user} do
       conn =
-        conn |> fetch_cookies() |> UserAuthController.login_user(user, %{"remember_me" => "true"})
+        conn |> fetch_cookies() |> UserAuth.login_user(user, %{"remember_me" => "true"})
 
       assert get_session(conn, :user_token) == conn.cookies["user_remember_me"]
 
@@ -54,7 +54,7 @@ defmodule TtcAlertsWeb.UserAuthControllerTest do
         |> put_session(:user_token, user_token)
         |> put_req_cookie("user_remember_me", user_token)
         |> fetch_cookies()
-        |> UserAuthController.logout_user()
+        |> UserAuth.logout_user()
 
       refute get_session(conn, :user_token)
       refute conn.cookies["user_remember_me"]
@@ -64,7 +64,7 @@ defmodule TtcAlertsWeb.UserAuthControllerTest do
     end
 
     test "works even if user is already logged out", %{conn: conn} do
-      conn = conn |> fetch_cookies() |> UserAuthController.logout_user()
+      conn = conn |> fetch_cookies() |> UserAuth.logout_user()
       refute get_session(conn, :user_token)
       assert %{max_age: 0} = conn.resp_cookies["user_remember_me"]
       assert redirected_to(conn) == "/"
@@ -76,14 +76,14 @@ defmodule TtcAlertsWeb.UserAuthControllerTest do
       user_token = Accounts.generate_session_token(user)
 
       conn =
-        conn |> put_session(:user_token, user_token) |> UserAuthController.fetch_current_user([])
+        conn |> put_session(:user_token, user_token) |> UserAuth.fetch_current_user([])
 
       assert conn.assigns.current_user.id == user.id
     end
 
     test "authenticates user from cookies", %{conn: conn, user: user} do
       logged_in_conn =
-        conn |> fetch_cookies() |> UserAuthController.login_user(user, %{"remember_me" => "true"})
+        conn |> fetch_cookies() |> UserAuth.login_user(user, %{"remember_me" => "true"})
 
       user_token = logged_in_conn.cookies["user_remember_me"]
       %{value: signed_token} = logged_in_conn.resp_cookies["user_remember_me"]
@@ -91,7 +91,7 @@ defmodule TtcAlertsWeb.UserAuthControllerTest do
       conn =
         conn
         |> put_req_cookie("user_remember_me", signed_token)
-        |> UserAuthController.fetch_current_user([])
+        |> UserAuth.fetch_current_user([])
 
       assert get_session(conn, :user_token) == user_token
       assert conn.assigns.current_user.id == user.id
@@ -99,7 +99,7 @@ defmodule TtcAlertsWeb.UserAuthControllerTest do
 
     test "does not authenticate if data is missing", %{conn: conn, user: user} do
       _ = Accounts.generate_session_token(user)
-      conn = UserAuthController.fetch_current_user(conn, [])
+      conn = UserAuth.fetch_current_user(conn, [])
       refute get_session(conn, :user_token)
       refute conn.assigns.current_user
     end
@@ -110,14 +110,14 @@ defmodule TtcAlertsWeb.UserAuthControllerTest do
       conn =
         conn
         |> assign(:current_user, user)
-        |> UserAuthController.redirect_if_user_is_authenticated([])
+        |> UserAuth.redirect_if_user_is_authenticated([])
 
       assert conn.halted
       assert redirected_to(conn) == "/"
     end
 
     test "does not redirect if user is not authenticated", %{conn: conn} do
-      conn = UserAuthController.redirect_if_user_is_authenticated(conn, [])
+      conn = UserAuth.redirect_if_user_is_authenticated(conn, [])
       refute conn.halted
       refute conn.status
     end
@@ -125,7 +125,7 @@ defmodule TtcAlertsWeb.UserAuthControllerTest do
 
   describe "require_authenticated_user/2" do
     test "redirects if user is not authenticated", %{conn: conn} do
-      conn = conn |> fetch_flash() |> UserAuthController.require_authenticated_user([])
+      conn = conn |> fetch_flash() |> UserAuth.require_authenticated_user([])
       assert conn.halted
       assert redirected_to(conn) == "/users/login"
       assert get_flash(conn, :error) == "You must login to access this page."
@@ -135,7 +135,7 @@ defmodule TtcAlertsWeb.UserAuthControllerTest do
       halted_conn =
         %{conn | request_path: "/foo?bar"}
         |> fetch_flash()
-        |> UserAuthController.require_authenticated_user([])
+        |> UserAuth.require_authenticated_user([])
 
       assert halted_conn.halted
       assert get_session(halted_conn, :user_return_to) == "/foo?bar"
@@ -143,7 +143,7 @@ defmodule TtcAlertsWeb.UserAuthControllerTest do
       halted_conn =
         %{conn | request_path: "/foo?bar", method: "POST"}
         |> fetch_flash()
-        |> UserAuthController.require_authenticated_user([])
+        |> UserAuth.require_authenticated_user([])
 
       assert halted_conn.halted
       refute get_session(halted_conn, :user_return_to)
@@ -151,7 +151,7 @@ defmodule TtcAlertsWeb.UserAuthControllerTest do
 
     test "does not redirect if user is authenticated", %{conn: conn, user: user} do
       conn =
-        conn |> assign(:current_user, user) |> UserAuthController.require_authenticated_user([])
+        conn |> assign(:current_user, user) |> UserAuth.require_authenticated_user([])
 
       refute conn.halted
       refute conn.status

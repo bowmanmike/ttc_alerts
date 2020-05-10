@@ -1,4 +1,8 @@
-defmodule TtcAlertsWeb.UserAuthController do
+defmodule TtcAlertsWeb.Helpers.UserAuth do
+  @moduledoc """
+  Encapsulates helper functions used to handle user authentication
+  """
+
   import Plug.Conn
   import Phoenix.Controller
 
