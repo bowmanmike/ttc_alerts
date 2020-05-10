@@ -2,7 +2,7 @@ defmodule TtcAlertsWeb.UserRegistrationController do
   use TtcAlertsWeb, :controller
 
   alias TtcAlerts.Accounts
-  alias TtcAlerts.Accounts.User
+  alias TtcAlerts.Accounts.Schema.User
   alias TtcAlertsWeb.Helpers.UserAuth
 
   def new(conn, _params) do

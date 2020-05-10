@@ -1,4 +1,4 @@
-defmodule TtcAlerts.Users do
+defmodule TtcAlerts.Accounts.Users do
   @moduledoc """
   Context module for interacting with User records.
   """

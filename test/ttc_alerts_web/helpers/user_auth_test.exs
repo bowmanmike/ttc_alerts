@@ -34,8 +34,7 @@ defmodule TtcAlertsWeb.Helpers.UserAuthTest do
     end
 
     test "writes a cookie if remember_me is configured", %{conn: conn, user: user} do
-      conn =
-        conn |> fetch_cookies() |> UserAuth.login_user(user, %{"remember_me" => "true"})
+      conn = conn |> fetch_cookies() |> UserAuth.login_user(user, %{"remember_me" => "true"})
 
       assert get_session(conn, :user_token) == conn.cookies["user_remember_me"]
 
@@ -75,8 +74,7 @@ defmodule TtcAlertsWeb.Helpers.UserAuthTest do
     test "authenticates user from session", %{conn: conn, user: user} do
       user_token = Accounts.generate_session_token(user)
 
-      conn =
-        conn |> put_session(:user_token, user_token) |> UserAuth.fetch_current_user([])
+      conn = conn |> put_session(:user_token, user_token) |> UserAuth.fetch_current_user([])
 
       assert conn.assigns.current_user.id == user.id
     end
@@ -150,8 +148,7 @@ defmodule TtcAlertsWeb.Helpers.UserAuthTest do
     end
 
     test "does not redirect if user is authenticated", %{conn: conn, user: user} do
-      conn =
-        conn |> assign(:current_user, user) |> UserAuth.require_authenticated_user([])
+      conn = conn |> assign(:current_user, user) |> UserAuth.require_authenticated_user([])
 
       refute conn.halted
       refute conn.status

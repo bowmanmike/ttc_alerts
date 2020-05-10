@@ -4,7 +4,7 @@ defmodule TtcAlerts.AccountsTest do
   alias TtcAlerts.Accounts
 
   import TtcAlerts.AccountsFixtures
-  alias TtcAlerts.Accounts.{User, UserToken}
+  alias TtcAlerts.Accounts.Schema.{User, UserToken}
 
   describe "get_user_by_email/1" do
     test "does not return the user if the email does not exist" do

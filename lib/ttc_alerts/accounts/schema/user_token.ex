@@ -1,9 +1,8 @@
-defmodule TtcAlerts.Accounts.UserToken do
+defmodule TtcAlerts.Accounts.Schema.UserToken do
   @moduledoc """
   Context and schema for handling UserTokens
   """
-  use Ecto.Schema
-  import Ecto.Query
+  use TtcAlerts.Schema
 
   @hash_algorithm :sha256
   @rand_size 32
@@ -19,7 +18,7 @@ defmodule TtcAlerts.Accounts.UserToken do
     field :token, :binary
     field :context, :string
     field :sent_to, :string
-    belongs_to :user, TtcAlerts.Accounts.User
+    belongs_to :user, TtcAlerts.Accounts.Schema.User
 
     timestamps(updated_at: false)
   end
@@ -31,7 +30,9 @@ defmodule TtcAlerts.Accounts.UserToken do
   """
   def build_session_token(user) do
     token = :crypto.strong_rand_bytes(@rand_size)
-    {token, %TtcAlerts.Accounts.UserToken{token: token, context: "session", user_id: user.id}}
+
+    {token,
+     %TtcAlerts.Accounts.Schema.UserToken{token: token, context: "session", user_id: user.id}}
   end
 
   @doc """
@@ -66,7 +67,7 @@ defmodule TtcAlerts.Accounts.UserToken do
     hashed_token = :crypto.hash(@hash_algorithm, token)
 
     {Base.url_encode64(token, padding: false),
-     %TtcAlerts.Accounts.UserToken{
+     %TtcAlerts.Accounts.Schema.UserToken{
        token: hashed_token,
        context: context,
        sent_to: sent_to,
@@ -126,18 +127,18 @@ defmodule TtcAlerts.Accounts.UserToken do
   Returns the given token with the given context.
   """
   def token_and_context_query(token, context) do
-    from TtcAlerts.Accounts.UserToken, where: [token: ^token, context: ^context]
+    from TtcAlerts.Accounts.Schema.UserToken, where: [token: ^token, context: ^context]
   end
 
   @doc """
   Gets all tokens for the given user for the given contexts.
   """
   def user_and_contexts_query(user, :all) do
-    from t in TtcAlerts.Accounts.UserToken, where: t.user_id == ^user.id
+    from t in TtcAlerts.Accounts.Schema.UserToken, where: t.user_id == ^user.id
   end
 
   def user_and_contexts_query(user, [_ | _] = contexts) do
-    from t in TtcAlerts.Accounts.UserToken,
+    from t in TtcAlerts.Accounts.Schema.UserToken,
       where: t.user_id == ^user.id and t.context in ^contexts
   end
 end
