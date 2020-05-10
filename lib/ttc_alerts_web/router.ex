@@ -11,7 +11,7 @@ defmodule TtcAlertsWeb.Router do
     plug :protect_from_forgery
     plug :put_secure_browser_headers
     plug :fetch_current_user
-    plug :put_root_layout, {TtcAlertsWeb.LayoutView, :app}
+    plug :put_root_layout, {TtcAlertsWeb.LayoutView, :root}
   end
 
   pipeline :api do
