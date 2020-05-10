@@ -20,6 +20,7 @@ defmodule TtcAlerts.ServiceAlertsTest do
     end
   end
 
+  @tag :skip
   describe "mark_inactive/1" do
     test "it marks outdated alerts as inactive" do
       old_alert_params = params_for(:service_alert)
