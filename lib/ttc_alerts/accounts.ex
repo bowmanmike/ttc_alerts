@@ -10,6 +10,13 @@ defmodule TtcAlerts.Accounts do
   ## Database getters
 
   @doc """
+  Gets all users in the database.
+  """
+  def list_users do
+    Repo.all(User)
+  end
+
+  @doc """
   Gets a user by email.
 
   ## Examples
