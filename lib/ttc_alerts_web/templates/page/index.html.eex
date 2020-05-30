@@ -3,7 +3,7 @@
 <div>
   <%= for user <- @users do %>
     <div>
-      <p><%= user.name %>: <%= user.phone_number %></p>
+      <p><%= user.email %></p>
       <p></p>
     </div>
   <% end %>

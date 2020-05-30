@@ -34,6 +34,7 @@ defmodule TtcAlerts.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
+      {:bcrypt_elixir, "~> 2.0"},
       {:credo, "~> 1.1.0", only: [:dev, :test], runtime: false},
       {:dialyxir, "~> 1.0.0-rc.7", only: [:dev], runtime: false},
       {:ecto_sql, "~> 3.1"},
@@ -46,6 +47,7 @@ defmodule TtcAlerts.MixProject do
       {:mox, "~> 0.5", only: [:dev, :test]},
       {:phoenix, "~> 1.5.1", override: true},
       {:phoenix_ecto, "~> 4.0"},
+      {:phx_gen_auth, "~> 0.2.0", only: [:dev], runtime: false},
       {:phoenix_html, "~> 2.14"},
       {:phoenix_live_dashboard, "~> 0.2.1"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},

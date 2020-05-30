@@ -2,7 +2,7 @@ defmodule TtcAlertsWeb.HelloLive do
   @moduledoc """
   LiveView testing ground
   """
-  use Phoenix.LiveView
+  use Phoenix.LiveView, layout: {TtcAlertsWeb.LayoutView, "live.html"}
 
   def render(assigns) do
     ~L"""
