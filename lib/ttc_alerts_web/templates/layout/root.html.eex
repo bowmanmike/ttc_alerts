@@ -12,7 +12,7 @@
     <%= render "_user_menu.html", assigns %>
     <header>
       <section class="container">
-        <h1>TTC?!?!?</h1>
+        <h1 class="text-4xl text-blue-500">TTC?!?!?</h1>
       </section>
     </header>
     <%= @inner_content %>
