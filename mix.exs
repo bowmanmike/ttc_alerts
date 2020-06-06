@@ -20,7 +20,7 @@ defmodule TtcAlerts.MixProject do
   def application do
     [
       mod: {TtcAlerts.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools, :os_mon]
     ]
   end
 
@@ -34,6 +34,7 @@ defmodule TtcAlerts.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
+      {:bcrypt_elixir, "~> 2.0"},
       {:credo, "~> 1.1.0", only: [:dev, :test], runtime: false},
       {:dialyxir, "~> 1.0.0-rc.7", only: [:dev], runtime: false},
       {:ecto_sql, "~> 3.1"},
@@ -44,13 +45,18 @@ defmodule TtcAlerts.MixProject do
       {:httpoison, "~> 1.6"},
       {:jason, "~> 1.0"},
       {:mox, "~> 0.5", only: [:dev, :test]},
-      {:phoenix, "~> 1.4.11"},
+      {:phoenix, "~> 1.5.1", override: true},
       {:phoenix_ecto, "~> 4.0"},
-      {:phoenix_html, "~> 2.11"},
+      {:phx_gen_auth, "~> 0.2.0", only: [:dev], runtime: false},
+      {:phoenix_html, "~> 2.14"},
+      {:phoenix_live_dashboard, "~> 0.2.1"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
-      {:phoenix_pubsub, "~> 1.1"},
-      {:plug_cowboy, "~> 2.0"},
+      {:phoenix_live_view, "~> 0.12"},
+      {:phoenix_pubsub, "~> 2.0"},
+      {:plug_cowboy, "~> 2.1"},
       {:postgrex, ">= 0.0.0"},
+      {:telemetry_poller, "~> 0.4"},
+      {:telemetry_metrics, "~> 0.4"},
       {:timex, "~> 3.6"}
     ]
   end

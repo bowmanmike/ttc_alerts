@@ -1,6 +1,12 @@
 defmodule TtcAlertsWeb.Endpoint do
   use Phoenix.Endpoint, otp_app: :ttc_alerts
 
+  @session_options [
+    store: :cookie,
+    key: "_ttc_alerts_key",
+    signing_salt: "4koiRMAt"
+  ]
+
   socket "/socket", TtcAlertsWeb.UserSocket,
     websocket: true,
     longpoll: false
@@ -23,6 +29,10 @@ defmodule TtcAlertsWeb.Endpoint do
     plug Phoenix.CodeReloader
   end
 
+  plug Phoenix.LiveDashboard.RequestLogger,
+    param_key: "request_logger",
+    cookie_key: "request_logger"
+
   plug Plug.RequestId
   plug Plug.Telemetry, event_prefix: [:phoenix, :endpoint]
 
@@ -37,10 +47,9 @@ defmodule TtcAlertsWeb.Endpoint do
   # The session will be stored in the cookie and signed,
   # this means its contents can be read but not tampered with.
   # Set :encryption_salt if you would also like to encrypt it.
-  plug Plug.Session,
-    store: :cookie,
-    key: "_ttc_alerts_key",
-    signing_salt: "4koiRMAt"
+  plug Plug.Session, @session_options
 
   plug TtcAlertsWeb.Router
+
+  socket "/live", Phoenix.LiveView.Socket, websocket: [connect_info: [session: @session_options]]
 end

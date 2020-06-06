@@ -6,7 +6,7 @@ defmodule TtcAlerts.Factories.ServiceAlert do
   defmacro __using__(_opts) do
     quote do
       def service_alert_factory do
-        raw_text = Faker.Lorem.Shakespeare.hamlet()
+        raw_text = sequence(:raw_text, &"#{Faker.Lorem.Shakespeare.hamlet()} #{&1}")
         hashed_text = :sha256 |> :crypto.hash(raw_text) |> Base.encode16()
 
         %ServiceAlert{

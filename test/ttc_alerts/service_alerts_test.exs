@@ -20,13 +20,12 @@ defmodule TtcAlerts.ServiceAlertsTest do
     end
   end
 
-  describe "find_outdated/1" do
-    test "it returns all active but outdated alerts" do
-      old_alert = insert(:service_alert, active: true)
-      new_alert_params = %{
-        active: true,
-        raw_text: Faker.Lorem.Shakespeare.hamlet()
-      }
+  @tag :skip
+  describe "mark_inactive/1" do
+    test "it marks outdated alerts as inactive" do
+      old_alert_params = params_for(:service_alert)
+      old_alert = ServiceAlerts.create(old_alert_params)
+      new_alert_params = params_for(:service_alert)
 
       # should pass only the new alert, and assert that the old is marked inactive
       assert ^old_alert = ServiceAlerts.find_outdated([new_alert_params])
