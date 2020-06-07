@@ -34,9 +34,8 @@ defmodule TtcAlerts.ServiceAlerts do
   # Might also need a function to get an alert by it's hash... but can that be unique?
   # would need an index and probably a uniqueness guarantee
   def find_outdated(new_alerts) do
-    existing_alerts_set = list(:active) |> Enum.into(MapSet.new())
+    existing_alerts_set = :active |> list() |> Enum.into(MapSet.new())
     new_alerts_set = Enum.into(new_alerts, MapSet.new())
-    # require IEx; IEx.pry()
 
     :ok
   end
