@@ -15,8 +15,10 @@ defmodule TtcAlerts.Schema.ServiceAlert do
   end
 
   def create_changeset(service_alert, attrs) do
+    IO.inspect(attrs, label: :attrs)
     service_alert
     |> cast(attrs, ~w(raw_text active last_updated)a)
+    |> IO.inspect()
     |> hash_text()
     |> validate_changeset()
   end
@@ -27,6 +29,14 @@ defmodule TtcAlerts.Schema.ServiceAlert do
 
   def inactive(query \\ __MODULE__) do
     from(alert in query, where: alert.active == false)
+  end
+
+  def by_id(query \\ __MODULE__, id) do
+    from(alert in query, where: alert.id == ^id)
+  end
+
+  def by_hashed_text(query \\ __MODULE__, text) do
+    from(alert in query, where: alert.hashed_text == ^text)
   end
 
   defp validate_changeset(changeset) do

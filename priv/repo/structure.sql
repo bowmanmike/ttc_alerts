@@ -203,6 +203,13 @@ CREATE UNIQUE INDEX service_alerts_hashed_text_active_index ON public.service_al
 
 
 --
+-- Name: service_alerts_hashed_text_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX service_alerts_hashed_text_index ON public.service_alerts USING btree (hashed_text);
+
+
+--
 -- Name: users_email_index; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -228,5 +235,5 @@ ALTER TABLE ONLY public.users_tokens
 -- PostgreSQL database dump complete
 --
 
-INSERT INTO public."schema_migrations" (version) VALUES (20200127183908), (20200329163452), (20200509201112);
+INSERT INTO public."schema_migrations" (version) VALUES (20200127183908), (20200329163452), (20200509201112), (20200607181559);
 

@@ -20,15 +20,17 @@ defmodule TtcAlerts.ServiceAlertsTest do
     end
   end
 
-  @tag :skip
   describe "mark_inactive/1" do
     test "it marks outdated alerts as inactive" do
-      old_alert_params = params_for(:service_alert)
-      old_alert = ServiceAlerts.create(old_alert_params)
-      new_alert_params = params_for(:service_alert)
+      old_alert = insert(:service_alert, active: true)
+      current_alert = params_for(:service_alert, active: true)
+      {:ok, _current} = ServiceAlerts.create(current_alert)
+      new_alert_params = [params_for(:service_alert, active: true), current_alert]
 
       # should pass only the new alert, and assert that the old is marked inactive
-      assert ^old_alert = ServiceAlerts.find_outdated([new_alert_params])
+      result = ServiceAlerts.find_outdated(new_alert_params)
+      require IEx; IEx.pry()
+      assert false
     end
   end
 end
