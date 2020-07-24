@@ -15,11 +15,15 @@ defmodule TtcAlerts.Schema.ServiceAlert do
   end
 
   def create_changeset(service_alert, attrs) do
-    IO.inspect(attrs, label: :attrs)
     service_alert
     |> cast(attrs, ~w(raw_text active last_updated)a)
-    |> IO.inspect()
     |> hash_text()
+    |> validate_changeset()
+  end
+
+  def update_changeset(service_alert, attrs) do
+    service_alert
+    |> cast(attrs, [:raw_text, :active, :last_updated])
     |> validate_changeset()
   end
 

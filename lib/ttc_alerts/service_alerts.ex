@@ -35,22 +35,20 @@ defmodule TtcAlerts.ServiceAlerts do
     |> Repo.insert()
   end
 
-  def mark_inactive(ids) when is_list(ids) do
-    Enum.map(ids, &mark_inactive/1)
+  def mark_inactive(hashes) when is_list(hashes) do
+    Enum.map(hashes, &mark_inactive/1)
   end
 
-  def mark_inactive(id) do
-    ServiceAlert
-    |> ServiceAlert.by_id(id)
-    |> IO.inspect()
-    |> ServiceAlert.create_changeset(%{active: false})
+  def mark_inactive(hashed_text) do
+    {:ok, alert} =
+      hashed_text
+      |> by_hashed_text()
+      |> ServiceAlert.update_changeset(%{active: false})
+      |> Repo.update()
+
+    alert
   end
 
-  # going to run into issues because the hashing is done on insert
-  # Probably need to move that into it's own step
-  # Might also need a function to get an alert by it's hash... but can that be unique?
-  # would need an index and probably a uniqueness guarantee
-  # Maybe the hashing isn't required at all
   def find_outdated(new_alerts) do
     existing_alerts_set =
       :active
@@ -65,10 +63,8 @@ defmodule TtcAlerts.ServiceAlerts do
 
     # this doesn't quite work because the existing alerts are db structs and the
     # new records are just params
-    deleted_alerts =
-      existing_alerts_set
-      |> MapSet.difference(new_alerts_set)
-      |> Enum.map(&mark_inactive/1)
-    require IEx; IEx.pry()
+    existing_alerts_set
+    |> MapSet.difference(new_alerts_set)
+    |> Enum.map(&mark_inactive/1)
   end
 end
