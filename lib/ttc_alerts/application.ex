@@ -36,7 +36,8 @@ defmodule TtcAlerts.Application do
     :ok
   end
 
-  defp ttc_poller(children, mix_env) when mix_env == :test, do: children
+  @disabled_envs [:test, :prod]
+  defp ttc_poller(children, mix_env) when mix_env in @disabled_envs, do: children
 
   defp ttc_poller(children, _mix_env), do: children ++ [{TtcAlerts.Services.Poller, []}]
 end

@@ -4,9 +4,14 @@ defmodule TtcAlerts.Poller do
   """
 
   def run(path) do
-    {:ok, %{body: body, status_code: 200}} = client().get(path)
+    case client().get(path, [], ssl: [versions: :"tlsv1.2"]) do
+      {:ok, %{status_code: 200, body: body}} ->
+        body
 
-    body
+      err ->
+        require IEx
+        IEx.pry()
+    end
   end
 
   defp client, do: Application.get_env(:ttc_alerts, __MODULE__)[:http_client]
