@@ -45,7 +45,7 @@ defmodule TtcAlerts.MixProject do
       {:httpoison, "~> 1.6"},
       {:jason, "~> 1.0"},
       {:mox, "~> 0.5", only: [:dev, :test]},
-      {:phoenix, "~> 1.5.1", override: true},
+      {:phoenix, "~> 1.5", override: true},
       {:phoenix_ecto, "~> 4.0"},
       {:phx_gen_auth, "~> 0.2.0", only: [:dev], runtime: false},
       {:phoenix_html, "~> 2.14"},
