@@ -3,7 +3,7 @@ defmodule TtcAlerts.Release do
   Convenience functions for setting up the app in a release.
   """
 
-  @app :my_app
+  @app :ttc_alerts
 
   def migrate do
     load_app()
