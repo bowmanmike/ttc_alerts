@@ -1,5 +1,14 @@
 name: mix lint && mix test
 
+# common_steps: &common
+#   runs-on: ubuntu-latest
+#   steps:
+#   - uses: actions/checkout@v2
+#   - uses: actions/setup-elixir@v1
+#     with:
+#       otp-version: 23.1.1
+#       elixir-version: 1.11.0
+
 on: push
 
 jobs:
@@ -111,7 +120,7 @@ jobs:
           ${{ runner.os }}-mix-
     - uses: actions/cache@v2
       with:
-        path: 
+        path: _build
         key: ${{ runner.os }}-build-${{ hashFiles(format('{0}{1}', github.workspace, '/mix.lock')) }}
         restore-keys: |
           ${{ runner.os }}-build-
