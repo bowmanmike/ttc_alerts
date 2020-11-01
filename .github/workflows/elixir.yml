@@ -112,8 +112,14 @@ jobs:
     - uses: actions/cache@v2
       with:
         path: 
-        key: ${{ runner.os }}-plt-${{ hashFiles(format('{0}{1}', github.workspace, '/mix.lock')) }}
+        key: ${{ runner.os }}-build-${{ hashFiles(format('{0}{1}', github.workspace, '/mix.lock')) }}
         restore-keys: |
           ${{ runner.os }}-build-
+    - uses: actions/cache@v2
+      with:
+        path: priv/plts
+        key: ${{ runner.os }}-plt-${{ hashFiles(format('{0}{1}', github.workspace, '/priv/plts/*.plt')) }}
+        restore-keys: |
+          ${{ runner.os }}-plt-
     - name: Dialyzer
       run: mix dialyzer
