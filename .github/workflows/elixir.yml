@@ -72,7 +72,7 @@ jobs:
     - uses: actions/cache@v2
       with:
         path: _build
-        key: ${{ runner.os }}-build-%{{ hashFiles(format('{0}{1}}, github.workspace', '/mix.lock')) }}
+        key: ${{ runner.os }}-build-%{{ hashFiles(format('{0}{1}}', github.workspace, '/mix.lock')) }}
         restore-keys: |
           ${{ runner.os }}-build-
 
