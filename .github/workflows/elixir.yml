@@ -55,7 +55,7 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-build-
     - name: Lint
-    run: mix lint
+      run: mix lint
 
   test:
     needs: build
@@ -92,7 +92,7 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-build-
     - name: Test
-    run: mix test
+      run: mix test
 
   dialyzer:
     needs: build
@@ -122,4 +122,4 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-plt-
     - name: Dialyzer
-    run: mix dialyzer
+      run: mix dialyzer
