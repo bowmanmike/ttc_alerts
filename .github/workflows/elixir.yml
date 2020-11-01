@@ -23,7 +23,7 @@ common_steps: &common
     - uses: actions/cache@v2
       with:
         path: priv/plts
-        key: ${{ runner.os }}-plt-${{ hashFiles(format('{0}{1}', github.workspace, '/priv/plts/*.plt')) }}
+        key: ${{ runner.os }}-plt-${{ hashFiles(format('{0}{1}', github.workspace, '/mix.lock')) }}
         restore-keys: |
           ${{ runner.os }}-plt-
 
