@@ -4,9 +4,61 @@ on: push
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-elixir@v1
+      with:
+        otp-version: 23.1.1
+        elixir-version: 1.11.0
+    - name: Cache deps
+      uses: actions/cache@v2
+      with:
+        path: deps
+        key: ${{ runner.os }}-mix-${{ hashFiles(format('{0}{1}', github.workspace, '/mix.lock')) }}
+        restore-keys: |
+          ${{ runner.os }}-mix-
+    - name: Cache build
+      uses: actions/cache@v2
+      with:
+        path: _build
+        key: ${{ runner.os }}-build-${{ hashFiles(format('{0}{1}', github.workspace, '/mix.lock')) }}
+        restore-keys: |
+          ${{ runner.os }}-build-
+    - name: Install Dependencies
+      run: |
+        mix local.rebar --force
+        mix local.hex --force
+        mix deps.get
+    - name: Compile
+      run: mix compile --warnings-as-errors
 
+  lint:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-elixir@v1
+      with:
+        otp-version: 23.1.1
+        elixir-version: 1.11.0
+    - uses: actions/cache@v2
+      with:
+        path: deps
+        key: ${{ runner.os }}-mix-${{ hashFiles(format('{0}{1}', github.workspace, '/mix.lock')) }}
+        restore-keys: |
+          ${{ runner.os }}-mix-
+    - uses: actions/cache@v2
+      with:
+        path: _build
+        key: ${{ runner.os }}-build-${{ hashFiles(format('{0}{1}', github.workspace, '/mix.lock')) }}
+        restore-keys: |
+          ${{ runner.os }}-build-
+    - name: Lint
+      run: mix lint
+
+  test:
+    needs: build
     services:
       db:
         image: postgres:11
@@ -20,44 +72,54 @@ jobs:
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
+    runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v1
-    - uses: actions/setup-elixir@v1.0.0
+    - uses: actions/checkout@v2
+    - uses: actions/setup-elixir@v1
       with:
-        otp-version: 22.x
-        elixir-version: 1.10.0
-
-    - name: Cache deps
-      uses: actions/cache@v1
+        otp-version: 23.1.1
+        elixir-version: 1.11.0
+    - uses: actions/cache@v2
       with:
         path: deps
-        key: ${{ runner.OS }}-build-${{ hashFiles('**/mix.exs') }}
+        key: ${{ runner.os }}-mix-test-${{ hashFiles(format('{0}{1}', github.workspace, '/mix.lock')) }}
         restore-keys: |
-          ${{ runner.OS }}-build-${{ env.cache-name }}-
-          ${{ runner.OS }}-build-
-          ${{ runner.OS }}-
-    - name: Cache build
-      uses: actions/cache@v1
+          ${{ runner.os }}-mix-
+    - uses: actions/cache@v2
       with:
         path: _build
-        key: ${{ runner.OS }}-build-${{ hashFiles('**/mix.exs') }}
+        key: ${{ runner.os }}-build-test-${{ hashFiles(format('{0}{1}', github.workspace, '/mix.lock')) }}
         restore-keys: |
-          ${{ runner.OS }}-build-${{ env.cache-name }}-
-          ${{ runner.OS }}-build-
-          ${{ runner.OS }}-
-    - name: Install Dependencies
-      run: |
-        mix local.rebar --force
-        mix local.hex --force
-        mix deps.get
-    - name: Compile
-      run: mix compile --warnings-as-errors
-
-    - name: Lint
-      run: mix lint
-
+          ${{ runner.os }}-build-
     - name: Test
       run: mix test
 
+  dialyzer:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-elixir@v1
+      with:
+        otp-version: 23.1.1
+        elixir-version: 1.11.0
+    - uses: actions/cache@v2
+      with:
+        path: deps
+        key: ${{ runner.os }}-mix-${{ hashFiles(format('{0}{1}', github.workspace, '/mix.lock')) }}
+        restore-keys: |
+          ${{ runner.os }}-mix-
+    - uses: actions/cache@v2
+      with:
+        path: _build
+        key: ${{ runner.os }}-build-${{ hashFiles(format('{0}{1}', github.workspace, '/mix.lock')) }}
+        restore-keys: |
+          ${{ runner.os }}-build-
+    - uses: actions/cache@v2
+      with:
+        path: priv/plts
+        key: ${{ runner.os }}-plt-${{ hashFiles(format('{0}{1}', github.workspace, '/priv/plts/*.plt')) }}
+        restore-keys: |
+          ${{ runner.os }}-plt-
     - name: Dialyzer
       run: mix dialyzer

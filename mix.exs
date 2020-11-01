@@ -10,7 +10,12 @@ defmodule TtcAlerts.MixProject do
       compilers: [:phoenix, :gettext] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
-      deps: deps()
+      deps: deps(),
+      dialyzer: [
+        plt_core_path: "priv/plts",
+        plt_file: {:no_warn, "priv/plts/dialyzer.plt"},
+        plt_add_deps: :app_tree
+      ]
     ]
   end
 
@@ -36,7 +41,7 @@ defmodule TtcAlerts.MixProject do
     [
       {:bcrypt_elixir, "~> 2.0"},
       {:credo, "~> 1.1.0", only: [:dev, :test], runtime: false},
-      {:dialyxir, "~> 1.0.0-rc.7", only: [:dev], runtime: false},
+      {:dialyxir, "~> 1.0.0", only: [:dev], runtime: false},
       {:ecto_sql, "~> 3.1"},
       {:ecto_psql_extras, "~> 0.2"},
       {:ex_machina, "~> 2.3", only: [:dev, :test]},
