@@ -90,11 +90,6 @@ jobs:
         otp-version: 23.1.1
         elixir-version: 1.11.0
         steps:
-        - uses: actions/checkout@v2
-        - uses: actions/setup-elixir@v1
-          with:
-            otp-version: 23.1.1
-            elixir-version: 1.11.0
             
     - uses: actions/cache@v2
       with:
