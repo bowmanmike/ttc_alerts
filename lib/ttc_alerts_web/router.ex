@@ -21,8 +21,9 @@ defmodule TtcAlertsWeb.Router do
   scope "/", TtcAlertsWeb do
     pipe_through :browser
 
-    get "/", PageController, :index
+    # get "/", PageController, :index
 
+    live "/", AlertsLive
     live "/hello", HelloLive
   end
 

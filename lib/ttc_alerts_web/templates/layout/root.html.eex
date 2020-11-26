@@ -9,13 +9,14 @@
     <%= csrf_meta_tag() %>
   </head>
   <body>
-    <%= render "_user_menu.html", assigns %>
-    <header>
+    <header class="container p-8 pl-12">
       <section class="container">
-        <h1>TTC?!?!?</h1>
+        <h1 class="text-4xl">TTC?!?!?</h1>
       </section>
     </header>
-    <%= @inner_content %>
+    <main class="container p-4">
+      <%= @inner_content %>
+    </main>
     <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
   </body>
 </html>

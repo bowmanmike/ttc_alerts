@@ -1,0 +1,9 @@
+<div>
+  <h2>Active Alerts</h2>
+
+  <div>
+    <%= for alert <- @alerts do %>
+      <p><%= alert.raw_text %></p>
+    <% end %>
+  </div>
+</div>
