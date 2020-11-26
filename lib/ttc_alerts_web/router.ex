@@ -29,7 +29,7 @@ defmodule TtcAlertsWeb.Router do
   if Mix.env() == :dev do
     scope "/" do
       pipe_through :browser
-      live_dashboard "/dashboard", metrics: TtcAlertsWeb.Telemetry
+      live_dashboard "/dashboard", metrics: TtcAlertsWeb.Telemetry, ecto_repos: [TtcAlerts.Repo]
     end
   end
 

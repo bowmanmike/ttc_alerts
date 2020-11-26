@@ -10,7 +10,12 @@ defmodule TtcAlerts.MixProject do
       compilers: [:phoenix, :gettext] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
-      deps: deps()
+      deps: deps(),
+      dialyzer: [
+        plt_core_path: "priv/plts",
+        plt_file: {:no_warn, "priv/plts/dialyzer.plt"},
+        plt_add_deps: :app_tree
+      ]
     ]
   end
 
@@ -36,8 +41,9 @@ defmodule TtcAlerts.MixProject do
     [
       {:bcrypt_elixir, "~> 2.0"},
       {:credo, "~> 1.1.0", only: [:dev, :test], runtime: false},
-      {:dialyxir, "~> 1.0.0-rc.7", only: [:dev], runtime: false},
+      {:dialyxir, "~> 1.0.0", only: [:dev], runtime: false},
       {:ecto_sql, "~> 3.1"},
+      {:ecto_psql_extras, "~> 0.2"},
       {:ex_machina, "~> 2.3", only: [:dev, :test]},
       {:faker, "~> 0.13", only: [:dev, :test]},
       {:floki, "~> 0.25.0"},
@@ -45,13 +51,13 @@ defmodule TtcAlerts.MixProject do
       {:httpoison, "~> 1.6"},
       {:jason, "~> 1.0"},
       {:mox, "~> 0.5", only: [:dev, :test]},
-      {:phoenix, "~> 1.5.1", override: true},
+      {:phoenix, "~> 1.5", override: true},
       {:phoenix_ecto, "~> 4.0"},
       {:phx_gen_auth, "~> 0.2.0", only: [:dev], runtime: false},
       {:phoenix_html, "~> 2.14"},
-      {:phoenix_live_dashboard, "~> 0.2.1"},
+      {:phoenix_live_dashboard, "~> 0.3"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
-      {:phoenix_live_view, "~> 0.12"},
+      {:phoenix_live_view, "~> 0.14"},
       {:phoenix_pubsub, "~> 2.0"},
       {:plug_cowboy, "~> 2.1"},
       {:postgrex, ">= 0.0.0"},
