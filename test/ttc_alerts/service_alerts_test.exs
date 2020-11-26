@@ -27,9 +27,7 @@ defmodule TtcAlerts.ServiceAlertsTest do
       {:ok, _current} = ServiceAlerts.create(current_alert)
       new_alert_params = [params_for(:service_alert, active: true), current_alert]
 
-      assert [%{id: ^old_id} = alert | _] = results = ServiceAlerts.find_outdated(new_alert_params)
-      assert Enum.count(results) == 1
-      assert alert.active == false
+      assert [%{id: ^old_id, active: false}] = ServiceAlerts.find_outdated(new_alert_params)
     end
   end
 end

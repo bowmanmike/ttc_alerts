@@ -235,5 +235,7 @@ ALTER TABLE ONLY public.users_tokens
 -- PostgreSQL database dump complete
 --
 
-INSERT INTO public."schema_migrations" (version) VALUES (20200127183908), (20200329163452), (20200509201112), (20200607181559);
-
+INSERT INTO public."schema_migrations" (version) VALUES (20200127183908);
+INSERT INTO public."schema_migrations" (version) VALUES (20200329163452);
+INSERT INTO public."schema_migrations" (version) VALUES (20200509201112);
+INSERT INTO public."schema_migrations" (version) VALUES (20200607181559);
