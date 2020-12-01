@@ -19,7 +19,8 @@ config :ttc_alerts, TtcAlertsWeb.Endpoint,
   pubsub_server: TtcAlerts.PubSub,
   live_view: [
     signing_salt: "Hm4tOUanHepTkRk01GZlroW8EzC5+xuc"
-  ]
+  ],
+  check_origin: ["//localhost", "//ttc-alerts.bowmanmike.com"]
 
 config :ttc_alerts, TtcAlerts.Poller, http_client: TtcAlerts.HTTPClient
 

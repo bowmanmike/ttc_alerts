@@ -9,7 +9,8 @@ defmodule TtcAlertsWeb.Endpoint do
 
   socket "/socket", TtcAlertsWeb.UserSocket,
     websocket: true,
-    longpoll: false
+    longpoll: false,
+    check_origin: ["/ttc-alerts.bowmanmike.com", "//localhost"]
 
   # Serve at "/" the static files from "priv/static" directory.
   #
@@ -51,5 +52,7 @@ defmodule TtcAlertsWeb.Endpoint do
 
   plug TtcAlertsWeb.Router
 
-  socket "/live", Phoenix.LiveView.Socket, websocket: [connect_info: [session: @session_options]]
+  socket "/live", Phoenix.LiveView.Socket,
+    websocket: [connect_info: [session: @session_options]],
+    check_origin: ["//ttc-alerts.bowmanmike.com", "//localhost"]
 end
