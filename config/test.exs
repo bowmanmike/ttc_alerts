@@ -16,7 +16,8 @@ config :ttc_alerts, TtcAlerts.Repo,
 # you can enable the server option below.
 config :ttc_alerts, TtcAlertsWeb.Endpoint,
   http: [port: 4002],
-  server: false
+  server: false,
+  secret_key_base: "THNQOUPtDF7+85rM26uEEJ6IHHl5koy+AM/tYlemycyakPNB1aFyte+VYcunE7Nk"
 
 config :ttc_alerts, TtcAlerts.Poller, http_client: TtcMock
 # Print only warnings and errors during test
