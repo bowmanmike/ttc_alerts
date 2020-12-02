@@ -141,5 +141,5 @@ jobs:
       uses: docker/build-push-action@v2.2.0
       with:
         push: true
-        tags: mikebowman/ttc_alerts:latest
+        tags: ttc_alerts:latest
 
