@@ -4,6 +4,7 @@ defmodule TtcAlertsWeb.UserRegistrationControllerTest do
   import TtcAlerts.AccountsFixtures
 
   describe "GET /users/register" do
+    @tag :skip
     test "renders registration page", %{conn: conn} do
       conn = get(conn, Routes.user_registration_path(conn, :new))
       response = html_response(conn, 200)
@@ -19,6 +20,7 @@ defmodule TtcAlertsWeb.UserRegistrationControllerTest do
   end
 
   describe "POST /users/register" do
+    @tag :skip
     @tag :capture_log
     test "creates account and logs the user in", %{conn: conn} do
       email = unique_user_email()

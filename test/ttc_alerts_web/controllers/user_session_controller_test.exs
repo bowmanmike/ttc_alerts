@@ -8,6 +8,7 @@ defmodule TtcAlertsWeb.UserSessionControllerTest do
   end
 
   describe "GET /users/login" do
+    @tag :skip
     test "renders login page", %{conn: conn} do
       conn = get(conn, Routes.user_session_path(conn, :new))
       response = html_response(conn, 200)
@@ -23,6 +24,7 @@ defmodule TtcAlertsWeb.UserSessionControllerTest do
   end
 
   describe "POST /users/login" do
+    @tag :skip
     test "logs the user in", %{conn: conn, user: user} do
       conn =
         post(conn, Routes.user_session_path(conn, :create), %{
