@@ -142,4 +142,7 @@ jobs:
       with:
         push: true
         tags: ["mikebowman/ttc_alerts:latest", "mikebowman/ttc_alerts:$GITHUB_SHA"]
+        tags: |
+            mikebowman/ttc_alerts:latest
+            mikebowman/ttc_alerts:$GITHUB_SHA
 
