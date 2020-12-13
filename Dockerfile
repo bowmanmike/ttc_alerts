@@ -46,4 +46,4 @@ COPY --from=build --chown=nobody:nobody /app/_build/prod/rel/ttc_alerts ./
 
 ENV HOME=/app
 
-CMD ["bin/ttc_alerts", "start"]
+CMD ["bin/ttc_alerts", "daemon"]
