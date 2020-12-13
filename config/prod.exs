@@ -11,7 +11,8 @@ use Mix.Config
 # before starting your production server.
 config :ttc_alerts, TtcAlertsWeb.Endpoint,
   url: [host: "ttc-alerts.bowmanmike.com", port: 443],
-  cache_static_manifest: "priv/static/cache_manifest.json"
+  cache_static_manifest: "priv/static/cache_manifest.json",
+  check_origin: ["https://ttc-alerts.bowmanmike.com"]
 
 # Do not print debug messages in production
 config :logger, level: :info
