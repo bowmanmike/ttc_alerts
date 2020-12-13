@@ -46,4 +46,4 @@ COPY --from=build --chown=nobody:nobody /app/_build/prod/rel/ttc_alerts ./
 
 ENV HOME=/app
 
-CMD ["bin/ttc_alerts", "daemon"]
+CMD ["bin/ttc_alerts", "start_iex"]
