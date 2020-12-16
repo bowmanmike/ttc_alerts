@@ -42,6 +42,7 @@ defmodule TtcAlerts.ParserTest do
 
       assert [
                %{
+                 # should be today at 13:20 PM, not whatever i'm getting
                  last_updated: ^expected_timestamp
                }
              ] = Parser.run(element)

@@ -10,20 +10,22 @@ defmodule TtcAlerts.Schema.ServiceAlert do
     field(:hashed_text, :string)
     field(:active, :boolean)
     field(:last_updated, :utc_datetime)
+    field(:line, :string)
+    field(:text, :string)
 
     timestamps()
   end
 
   def create_changeset(service_alert, attrs) do
     service_alert
-    |> cast(attrs, ~w(raw_text active last_updated)a)
+    |> cast(attrs, ~w(raw_text active last_updated line text)a)
     |> hash_text()
     |> validate_changeset()
   end
 
   def update_changeset(service_alert, attrs) do
     service_alert
-    |> cast(attrs, [:raw_text, :active, :last_updated])
+    |> cast(attrs, [:raw_text, :active, :last_updated, :line, :text])
     |> validate_changeset()
   end
 

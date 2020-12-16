@@ -13,11 +13,14 @@ defmodule TtcAlerts.Parser do
 
   defp extract_fields(element) do
     last_updated = parse_field(element, :last_updated)
+    [line, text] = element |> String.split(":", parts: 2) |> Enum.map(&String.trim/1)
 
     %{
       last_updated: last_updated,
       raw_text: element,
-      active: true
+      active: true,
+      line: line,
+      text: text
     }
   end
 

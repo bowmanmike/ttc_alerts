@@ -53,7 +53,9 @@ CREATE TABLE public.service_alerts (
     active boolean DEFAULT true NOT NULL,
     last_updated timestamp(0) without time zone NOT NULL,
     inserted_at timestamp(0) without time zone NOT NULL,
-    updated_at timestamp(0) without time zone NOT NULL
+    updated_at timestamp(0) without time zone NOT NULL,
+    line character varying(255),
+    text character varying(255)
 );
 
 
@@ -239,3 +241,4 @@ INSERT INTO public."schema_migrations" (version) VALUES (20200127183908);
 INSERT INTO public."schema_migrations" (version) VALUES (20200329163452);
 INSERT INTO public."schema_migrations" (version) VALUES (20200509201112);
 INSERT INTO public."schema_migrations" (version) VALUES (20200607181559);
+INSERT INTO public."schema_migrations" (version) VALUES (20201216015059);
