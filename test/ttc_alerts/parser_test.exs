@@ -22,6 +22,7 @@ defmodule TtcAlerts.ParserTest do
 
       current_year = Timex.today() |> Map.get(:year)
       expected_timestamp = NaiveDateTime.new!(current_year, 3, 20, 6, 41, 0)
+
       assert [
                %{
                  active: true,
