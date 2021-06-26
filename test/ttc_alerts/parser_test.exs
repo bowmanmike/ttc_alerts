@@ -20,10 +20,12 @@ defmodule TtcAlerts.ParserTest do
       element =
         ~s(Line 1: This weekend, there will be no subway service between Lawrence and St Clair due to ATC signal upgrades. Shuttle buses will run.Last updated Mar 20, 6:41 AM)
 
+      current_year = Timex.today() |> Map.get(:year)
+      expected_timestamp = NaiveDateTime.new!(current_year, 3, 20, 6, 41, 0)
       assert [
                %{
                  active: true,
-                 last_updated: ~N[2020-03-20 06:41:00],
+                 last_updated: ^expected_timestamp,
                  raw_text:
                    "Line 1: This weekend, there will be no subway service between Lawrence and St Clair due to ATC signal upgrades. Shuttle buses will run.Last updated Mar 20, 6:41 AM"
                }
