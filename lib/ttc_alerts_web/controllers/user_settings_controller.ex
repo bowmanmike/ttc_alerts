@@ -2,6 +2,7 @@ defmodule TtcAlertsWeb.UserSettingsController do
   use TtcAlertsWeb, :controller
 
   alias TtcAlerts.Accounts
+  alias TtcAlerts.Accounts.Schema.User
   alias TtcAlertsWeb.Helpers.UserAuth
 
   plug :assign_email_and_password_changesets
@@ -11,7 +12,7 @@ defmodule TtcAlertsWeb.UserSettingsController do
   end
 
   def update_email(conn, %{"current_password" => password, "user" => user_params}) do
-    user = conn.assigns.current_user
+    user = %User{} = conn.assigns.current_user
 
     case Accounts.apply_user_email(user, password, user_params) do
       {:ok, applied_user} ->
