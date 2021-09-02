@@ -46,4 +46,4 @@ COPY --from=build --chown=nobody:nobody /app/_build/prod/rel/ttc_alerts ./
 
 ENV HOME=/app
 
-ENTRYPOINT ["/app/bin/ttc_alerts"]
+CMD ["/app/bin/ttc_alerts", "start"]
