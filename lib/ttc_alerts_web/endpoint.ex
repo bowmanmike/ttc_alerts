@@ -54,5 +54,9 @@ defmodule TtcAlertsWeb.Endpoint do
 
   socket "/live", Phoenix.LiveView.Socket,
     websocket: [connect_info: [session: @session_options]],
-    check_origin: ["//ttc-alerts.bowmanmike.com", "//localhost", "https://restless-waterfall-8970.fly.dev"]
+    check_origin: [
+      "//ttc-alerts.bowmanmike.com",
+      "//localhost",
+      "https://restless-waterfall-8970.fly.dev"
+    ]
 end
