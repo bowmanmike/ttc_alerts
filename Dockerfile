@@ -6,12 +6,15 @@ RUN apk add --no-cache build-base npm git
 # prepare build dir
 WORKDIR /app
 
+ENV HEX_HTTP_TIMEOUT=20
+
 # install hex + rebar
 RUN mix local.hex --force && \
     mix local.rebar --force
 
 # set build ENV
 ENV MIX_ENV=prod
+ENV SECRET_KEY_BASE=nokey
 
 # install mix dependencies
 COPY mix.exs mix.lock ./
@@ -33,7 +36,7 @@ COPY lib lib
 RUN mix do compile, release
 
 # prepare release image
-FROM alpine:3.12 AS app
+FROM alpine:3.13.3 AS app
 RUN apk add --no-cache openssl ncurses-libs libstdc++
 
 WORKDIR /app
@@ -45,5 +48,8 @@ USER nobody:nobody
 COPY --from=build --chown=nobody:nobody /app/_build/prod/rel/ttc_alerts ./
 
 ENV HOME=/app
+ENV MIX_ENV=prod
+ENV SECRET_KEY_BASE=nokey
+ENV PORT=4000
 
-CMD ["/app/bin/ttc_alerts", "start"]
+CMD ["bin/ttc_alerts", "start"]
