@@ -12,7 +12,7 @@ use Mix.Config
 config :ttc_alerts, TtcAlertsWeb.Endpoint,
   url: [host: "ttc-alerts.bowmanmike.com", port: 443],
   cache_static_manifest: "priv/static/cache_manifest.json",
-  check_origin: ["https://ttc-alerts.bowmanmike.com"]
+  check_origin: ["https://ttc-alerts.bowmanmike.com", "https://restless-waterfall-8970.fly.dev"]
 
 # Do not print debug messages in production
 config :logger, level: :info

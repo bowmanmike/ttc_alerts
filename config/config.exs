@@ -20,7 +20,7 @@ config :ttc_alerts, TtcAlertsWeb.Endpoint,
   live_view: [
     signing_salt: "Hm4tOUanHepTkRk01GZlroW8EzC5+xuc"
   ],
-  check_origin: ["//localhost", "https://ttc-alerts.bowmanmike.com", "//restless-waterfall-8970.fly.dev"]
+  check_origin: ["//localhost", "https://ttc-alerts.bowmanmike.com", "https://restless-waterfall-8970.fly.dev"]
 
 config :ttc_alerts, TtcAlerts.Poller, http_client: TtcAlerts.HTTPClient
 
