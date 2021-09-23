@@ -4,9 +4,12 @@ defmodule TtcAlerts.Parser do
   """
 
   @last_updated_regex ~r/(?<date>[A-Z][a-z]{2} \d{2})?,? (?<time>\d{1,2}:\d{2} (?:AM|PM))$/
+  def last_updated_regex, do: @last_updated_regex
 
   def run(elements) when is_list(elements) do
-    Enum.map(elements, &extract_fields/1)
+    elements
+    |> Enum.reject(&Regex.match?(~r[Runnymede], &1.text))
+    |> Enum.map(&extract_fields/1)
   end
 
   def run(element), do: run([element])
@@ -14,10 +17,16 @@ defmodule TtcAlerts.Parser do
   defp extract_fields(element) do
     last_updated = parse_field(element.last_updated, :last_updated)
 
+    res = %{
       last_updated: last_updated,
       raw_text: element.text,
       active: true
     }
+
+    require IEx
+    IEx.pry()
+
+    res
   end
 
   defp parse_field(element, :last_updated) do

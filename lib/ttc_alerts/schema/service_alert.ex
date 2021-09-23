@@ -49,6 +49,8 @@ defmodule TtcAlerts.Schema.ServiceAlert do
     |> unique_constraint(:hashed_text, name: :service_alerts_hashed_text_active_index)
   end
 
+  # this might be broken if it's calculating the hash based on the full text, including timestamps
+  # also possible that the alert changes over time, new details get added, etc.
   defp hash_text(changeset) do
     case get_field(changeset, :raw_text) do
       nil ->

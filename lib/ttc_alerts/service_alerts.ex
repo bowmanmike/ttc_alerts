@@ -63,8 +63,10 @@ defmodule TtcAlerts.ServiceAlerts do
 
     # this doesn't quite work because the existing alerts are db structs and the
     # new records are just params
+    # require IEx; IEx.pry()
     existing_alerts_set
     |> MapSet.difference(new_alerts_set)
-    |> Enum.map(&mark_inactive/1)
+
+    # |> Enum.map(&mark_inactive/1)
   end
 end
