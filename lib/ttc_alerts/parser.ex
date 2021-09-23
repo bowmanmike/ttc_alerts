@@ -12,11 +12,10 @@ defmodule TtcAlerts.Parser do
   def run(element), do: run([element])
 
   defp extract_fields(element) do
-    last_updated = parse_field(element, :last_updated)
+    last_updated = parse_field(element.last_updated, :last_updated)
 
-    %{
       last_updated: last_updated,
-      raw_text: element,
+      raw_text: element.text,
       active: true
     }
   end

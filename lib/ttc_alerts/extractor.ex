@@ -15,6 +15,11 @@ defmodule TtcAlerts.Extractor do
   defp find_alerts(document, selector) do
     document
     |> Floki.find(selector)
-    |> Enum.map(&Floki.text/1)
+    |> Enum.map(fn elem ->
+      text = elem |> Floki.find(".veh-replace") |> Floki.text()
+      last_updated = elem |> Floki.find(".alert-updated") |> Floki.text()
+
+      %{text: text, last_updated: last_updated}
+    end)
   end
 end
