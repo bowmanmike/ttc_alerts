@@ -44,6 +44,7 @@ defmodule TtcAlerts.MixProject do
       {:dialyxir, "~> 1.0.0", only: [:dev], runtime: false},
       {:ecto_sql, "~> 3.1"},
       {:ecto_psql_extras, "~> 0.2"},
+      {:esbuild, "~> 0.2", runtime: Mix.env() == :dev},
       {:ex_machina, "~> 2.3", only: [:dev, :test]},
       {:faker, "~> 0.13", only: [:dev, :test]},
       {:floki, "~> 0.25.0"},
@@ -79,7 +80,8 @@ defmodule TtcAlerts.MixProject do
       "ecto.rollback": ["ecto.rollback", &ecto_dump/1],
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       lint: ["format --check-formatted", "credo --strict"],
-      test: ["ecto.create --quiet", "ecto.migrate", "test"]
+      test: ["ecto.create --quiet", "ecto.migrate", "test"],
+      "assets.deploy": ["esbuild default --minify", "phx.digest"]
     ]
   end
 
