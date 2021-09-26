@@ -155,13 +155,3 @@ jobs:
       with:
         push: true
         tags: mikebowman/ttc_alerts:latest
-    # TODO This doesn't work yet, because server commands need sudo
-    # - name: Restart docker with new container
-    #   uses: appleboy/ssh-action@master
-    #   with:
-    #     host: ${{ secrets.DEPLOY_HOST }}
-    #     username: ${{ secrets.DEPLOY_USER }}
-    #     key: ${{ secrets.DEPLOY_KEY }}
-    #     port: ${{ secrets.DEPLOY_PORT }}
-    #     script: ~/ttc_restart.sh
-

@@ -82,8 +82,8 @@ defmodule TtcAlerts.MixProject do
       lint: ["format --check-formatted", "credo --strict"],
       test: ["ecto.create --quiet", "ecto.migrate", "test"],
       "assets.deploy": [
-        "cmd --cd assets npm run deploy",
         "esbuild default --minify",
+        "cmd -- npm run deploy --prefix assets",
         "phx.digest"
       ]
     ]
