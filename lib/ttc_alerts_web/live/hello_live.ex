@@ -5,7 +5,7 @@ defmodule TtcAlertsWeb.HelloLive do
   use Phoenix.LiveView, layout: {TtcAlertsWeb.LayoutView, "live.html"}
 
   def render(assigns) do
-    ~L"""
+    ~H"""
     <p>Hello <%= @name %>!</p>
     <p>It is now <%= Timex.format!(@time, "%l:%M:%S %p", :strftime) %></p>
     <button phx-click="click">Click!</button>
@@ -28,6 +28,7 @@ defmodule TtcAlertsWeb.HelloLive do
   end
 
   def handle_event("click", _session, socket) do
+    IO.inspect("CLICKED!!!")
     {:noreply, socket}
   end
 
