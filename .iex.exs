@@ -13,3 +13,5 @@ alias TtcAlerts.{
 
 alias TtcAlerts.Account.Schema.User
 alias TtcAlerts.Schema.ServiceAlert
+
+alias TtcAlertsWeb.Router.Helpers, as: Routes
