@@ -1,4 +1,4 @@
-FROM hexpm/elixir:1.12.1-erlang-24.0.2-alpine-3.13.3 AS build
+FROM hexpm/elixir:1.12.1-erlang-24.0.2-alpine-3.14.0 AS build
 
 # install build dependencies
 RUN apk add --no-cache build-base npm git
@@ -14,6 +14,7 @@ RUN mix local.hex --force && \
 
 # set build ENV
 ENV MIX_ENV=prod
+ENV NODE_ENV=prod
 ENV SECRET_KEY_BASE=nokey
 
 # install mix dependencies
@@ -52,3 +53,4 @@ ENV SECRET_KEY_BASE=nokey
 ENV PORT=4000
 
 CMD ["bin/ttc_alerts", "start"]
+# CMD ["/bin/sh"]
